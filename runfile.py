@@ -5,7 +5,7 @@ print("RunFile")
 print("[Path]:{}\n".format(path))
 
 while True:
-    user = input("[File]:")
+    user = input("[Command]:")
     user = user.strip()
         
     if user=="":
