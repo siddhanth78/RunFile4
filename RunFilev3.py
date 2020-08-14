@@ -5,45 +5,89 @@ except:
 else:
     pass
 
-try:
-    import webbrowser
-except:
-    print("webbrowser module rquired.")
-else:
-    pass
-
-try:
-    from googlesearch import *
-except:
-    print("google module required. Enter in your command line : 'pip3 install google'")
-else:
-    pass
-
 
 origin = os.getcwd()
 path = os.getcwd()
 print("RunFile")
-print("[OriginalPath]:{}\n".format(path))
+print("[HomePath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
+enable=0
+enableb=0
 
 while True:
+    ok=0
     user = input("[Command]:")
     user = user.strip()
         
     if user=="":
         continue
-    elif user=="quit":
+    
+    if user=="quit":
         quit()
-    else:
-        pass
+
+
+    if user=='enablebrowser':
+        try:
+            import webbrowser
+        except:
+            print("[PythonModuleNotFound]:webbrowser module rquired.")
+            continue
+        else:
+            pass
+        try:
+            from googlesearch import *
+        except:
+            print("[PythonModuleNotFound]:google module required. Enter in your command line : 'pip3 install google'")
+            continue
+        else:
+            enableb=1
+            print("[BrowserSearch]:Enabled")
+            print("[Warning]:May or may not give desired output. Can be disabled with 'disablebrowser' command.")
+            continue
+
+
+    if user=='enablebrowser':
+        enableb=1
+        print("[BrowserSearch]:Disabled")
+        continue
+        
+
+    if user=='enablenhp':
+        enable=1
+        print("[NewHomePath]:Enabled")
+        print("[Warning]:May or may not give desired output. Can be disabled with 'disablenhp' command.")
+        continue
+
+    if user=='disablenhp':
+        enable=0
+        func=""
+        origin = os.getcwd()
+        path=origin
+        print("[NewHomePath]:Disabled")
+        print("[HomePath]:{}\n".format(path))
+        continue
     
 
-    if user=='originpath':
+    if user=='homepath':
         path=origin
         func=""
         print("[NewPath]:{}\n".format(path))
         continue
+
+    for comms in ['homepath','delpath','showpath','quit','newhomepath',
+                    'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse']:
+        if comms in user:
+            ok=1
+            break
+    else:
+        ok=0
+        
+    if ok==0:
+        print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(user))
+        continue
+    else:
+        pass
 
     if user=='showpath':
         print()
@@ -57,20 +101,19 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v3.1.")
+        print("RunFile v3.3.")
         print("Used to access and run files with ease.")
         print("Commands:\n")
-        print("browse:<url>          : Search using browser.")
         print("showpath              : Lists all the available directories and files in your current path.")
-        print("addpath:<dir/subdir>  : Adds a dir to your original path.")
-        print("findpath:<dir/subdir> : Checks and displays all dirs or files which match.")
+        print("addpath>dir/subdir    : Adds a dir to your original path.")
+        print("findpath>dir/subdir   : Checks and displays all dirs or files which match.")
         print("delpath               : Removes last added dir or subdir from path.")
-        print("originpath            : Goes back to original path.")
-        print("content:<filename>    : Displays content of the file.")
-        print("runfile:<filename>    : Runs or opens specified file.")
-        print("runfunc:<filename>    : Access and run a function in a '.py' file.")
-        print("findfunc:<filename>   : Find a function in a '.py' file>")
-        print("funclist:<filename>   : Lists all the classes and functions in a '.py' file.")
+        print("homepath              : Goes back to original path.")
+        print("content>filename      : Displays content of the file.")
+        print("runfile>filename      : Runs or opens specified file.")
+        print("runfunc>filename      : Access and run a function in a '.py' file.")
+        print("findfunc>filename     : Find a function in a '.py' file>")
+        print("funclist>filename     : Lists all the classes and functions in a '.py' file.")
         print("quit                  : Exit runfile.")
         print()
         continue
@@ -106,12 +149,12 @@ while True:
         print("[NewPath]:{}\n".format(path))
         continue
 
-    if ":" not in user:
-        print("[Error]:Command and file name must be seperated by ':'.")
+    if ">" not in user:
+        print("[Error]:Command and file name must be seperated by '>'.")
         continue
         
     try:
-        li = user.split(':')
+        li = user.split('>')
         comm = li[0]
         comm = comm.strip().lower()
         bfile = li[1]
@@ -122,12 +165,15 @@ while True:
     else:
         pass
 
-    if comm=='browse':
+    if comm=='browse' and enableb==1:
         print("[BrowserSearch]:{}".format(bfile))
         browse_path = browserPath
         for url in search(bfile, tld="co.in", num=1, stop = 1, pause = 2):
             webbrowser.open("https://google.com/search?q=%s" % bfile)
-        continue 
+        continue
+    elif comm=='browse' and enableb==0:
+        print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
+        continue
         
 
     if comm=='findpath':
@@ -141,6 +187,18 @@ while True:
                     print(os.path.join(root, name))
         print()
         continue
+
+
+    if comm=='newhomepath' and enable==1:
+        origin=bfile.replace("/","\\")
+        path=origin
+        func=""
+        print("[NewHomePath]:{}\n".format(origin))
+        continue
+    elif comm=='newhomepath' and enable==0:
+        print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
+        continue
+
 
     if comm=='addpath':
         if "." in bfile:
@@ -177,8 +235,8 @@ while True:
     else:
         pass
 
-    if comm not in ['runfile','runfunc','funclist','findfunc','content']:
-        print("[InvalidCommand]:Command '{}' doesn't exist.".format(comm))
+    if comm not in ['runfile','runfunc','funclist','findfunc','content','newhomepath','addpath','browse','findpath']:
+        print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
         continue
     elif comm in ['runfunc','funclist','findfunc'] and ext!='py':
         print("[InvalidCommand]:Command '{}' works with '.py' files only.".format(comm))
