@@ -47,7 +47,7 @@ while True:
             continue
 
 
-    if user=='enablebrowser':
+    if user=='disablebrowser':
         enableb=1
         print("[BrowserSearch]:Disabled")
         continue
@@ -65,17 +65,17 @@ while True:
         origin = os.getcwd()
         path=origin
         print("[NewHomePath]:Disabled")
-        print("[HomePath]:{}\n".format(path))
+        print("[HomePath]:{}".format(path))
         continue
     
 
     if user=='homepath':
         path=origin
         func=""
-        print("[HomePath]:{}\n".format(path))
+        print("[NewPath]:{}".format(path))
         continue
 
-    for comms in ['homepath','delpath','showpath','quit','newhomepath',
+    for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile',
                     'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse']:
         if comms in user:
             ok=1
@@ -101,7 +101,7 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v3.3.")
+        print("RunFile v3.3.4")
         print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath              : Lists all the available directories and files in your current path.")
@@ -146,7 +146,7 @@ while True:
                     break
                 func=func+fu+"."
         func=func.strip()
-        print("[NewPath]:{}\n".format(path))
+        print("[NewPath]:{}".format(path))
         continue
 
     if ">" not in user:
@@ -164,6 +164,17 @@ while True:
         continue
     else:
         pass
+
+
+    if comm=='delfile':
+        try:
+            os.remove(path+"\\"+bfile)
+        except:
+            print("[FileNotFound]:File '{}' doesn't exist.".format(bfile))
+        else:
+            print("[FileDeleted]:File '{}' has been deleted.".format(bfile))
+        continue
+    
 
     if comm=='browse' and enableb==1:
         print("[BrowserSearch]:{}".format(bfile))
@@ -191,10 +202,18 @@ while True:
 
     if comm=='newhomepath' and enable==1:
         origin=bfile.replace("/","\\")
-        path=origin
-        func=""
-        print("[NewHomePath]:{}\n".format(origin))
-        continue
+        if os.path.exists(pt:=origin)==False:
+            print(f"[InvalidPathOperation]:Path '{pt}' doesn't exist.")
+            origin = os.getcwd()
+            path=origin
+            func=""
+            print("[HomePath]:{}".format(origin))
+            continue
+        else:
+            path=origin
+            func=""
+            print("[NewHomePath]:{}".format(origin))
+            continue
     elif comm=='newhomepath' and enable==0:
         print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
         continue
@@ -218,7 +237,6 @@ while True:
         print("[NewPath]:{}".format(path))
         if bfile[0]=='.' or bfile[0]=='.':
             print("[Warning]:[Command:addpath]:Dir/subdir beginning with '/' or '\\' may result in wrong path.")
-        print()
         continue
 
     try:
