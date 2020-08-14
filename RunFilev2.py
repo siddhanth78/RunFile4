@@ -166,7 +166,7 @@ while True:
             print("\n{}\n".format(data))
         elif comm=='runfile':
             print("[Start]:{}".format(bfile))
-            os.system(path+"\\"+bfile)
+            os.system(r"{}".format(path+"\\"+bfile))
             print("[Stop]:{}".format(bfile))
         elif comm=='runfunc':
             arg = input("[Function]:")
@@ -254,7 +254,7 @@ while True:
             print("\n{}\n".format(data))
         elif comm == 'runfile':
             print("[Start]:{}".format(bfile))
-            os.system(path+"\\"+bfile)
+            os.system(r"{}".format(path+"\\"+bfile))
             print("[Stop]:{}".format(bfile))
             
             
