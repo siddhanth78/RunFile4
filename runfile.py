@@ -19,7 +19,7 @@ while True:
 
     if user=='showpath':
         print()
-        for root, dirs, files in os.walk(".", topdown=False):
+        for root, dirs, files in os.walk(path, topdown=False):
            for name in files:
               print(os.path.join(root, name))
            for name in dirs:
@@ -29,7 +29,7 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v1.3.")
+        print("RunFile v1.5.")
         print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath             : Lists all the available directories and sub-directories.")
@@ -42,6 +42,7 @@ while True:
         print("funclist:<filename>  : Lists all the classes and functions in a '.py' file.")
         print("quit                 : Exit runfile.")
         print()
+        continue
 
     if user=='delpath':
         if path==origin:
