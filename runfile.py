@@ -29,7 +29,7 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v1.5.")
+        print("RunFile v2.1.")
         print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath             : Lists all the available directories and sub-directories.")
@@ -95,10 +95,12 @@ while True:
         if "." in bfile:
             print("[InvalidPathOperation]:Cannot add file to path.")
             continue
-        if os.path.exists(path+"\\"+bfile)==False:
-            print("[InvalidPathOperation]:Such directory doesn't exist.")
+        if os.path.exists(pt:=(path+"\\"+bfile))==False:
+            print(f"[InvalidPathOperation]:Path '{pt}' doesn't exist.")
             continue
         path = path+"\\"+bfile
+        bfile = bfile.replace("/",".")
+        bfile = bfile.replace("\\",".")
         if func.strip()=="":
             func=bfile
         else:
