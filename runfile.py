@@ -33,13 +33,13 @@ while True:
         print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath : Lists all the available directories and sub-directories.")
-        print("addpath - <dir/subdir> : Adds a dir or subdir to your original path.")
+        print("addpath:<dir/subdir> : Adds a dir or subdir to your original path.")
         print("delpath : Removes last added dir or subdir from path.")
-        print("content - <filename> : Displays content of the file.")
-        print("runfile - <filename> : Runs or opens specified file.")
-        print("runfunc - <filename> : Access and run a function in a '.py' file.")
-        print("findfunc - <filename> : Find a function in a '.py' file>")
-        print("funclist - <filename> : Lists all the classes and functions in a '.py' file.")
+        print("content:<filename> : Displays content of the file.")
+        print("runfile:<filename> : Runs or opens specified file.")
+        print("runfunc:<filename> : Access and run a function in a '.py' file.")
+        print("findfunc:<filename> : Find a function in a '.py' file>")
+        print("funclist:<filename> : Lists all the classes and functions in a '.py' file.")
         print("quit : Exit runfile.")
         print()
 
@@ -74,12 +74,12 @@ while True:
         print("[NewPath]:{}\n".format(path))
         continue
 
-    if "-" not in user:
-        print("[Error]:Command and file name must be seperated by '-'.")
+    if ":" not in user:
+        print("[Error]:Command and file name must be seperated by ':'.")
         continue
         
     try:
-        li = user.split('-')
+        li = user.split(':')
         comm = li[0]
         comm = comm.strip().lower()
         bfile = li[1]
