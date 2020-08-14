@@ -72,7 +72,7 @@ while True:
     if user=='homepath':
         path=origin
         func=""
-        print("[NewPath]:{}\n".format(path))
+        print("[HomePath]:{}\n".format(path))
         continue
 
     for comms in ['homepath','delpath','showpath','quit','newhomepath',
