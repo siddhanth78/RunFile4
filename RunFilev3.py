@@ -194,6 +194,7 @@ while True:
         if comm=='content':
             filee = open(path+"\\"+bfile,'r')
             data = filee.read()
+            filee.close()
             print("\n{}\n".format(data))
         elif comm=='runfile':
             print("[Start]:{}".format(bfile))
@@ -234,6 +235,7 @@ while True:
             print()
             filee = open(path+"\\"+bfile,'r')
             data = filee.readlines()
+            filee.close()
             for lines in data:
                 funcname=""
                 lines = lines.strip()
@@ -254,6 +256,7 @@ while True:
             print()
             filee = open(path+"\\"+bfile,'r')
             data = filee.readlines()
+            filee.close()
             for lines in data:
                 funcname=""
                 lines = lines.strip()
@@ -283,6 +286,7 @@ while True:
             filee = open(path+"\\"+bfile,'r')
             data = filee.read()
             print("\n{}\n".format(data))
+            filee.close()
         elif comm == 'runfile':
             print("[Start]:{}".format(bfile))
             webbrowser.open(r"{}".format(path+"\\"+bfile))
