@@ -23,7 +23,7 @@ else:
 origin = os.getcwd()
 path = os.getcwd()
 print("RunFile")
-print("[OriginalPath]:{}".format(path))
+print("[OriginalPath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
 
