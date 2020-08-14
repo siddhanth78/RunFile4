@@ -8,12 +8,14 @@ else:
 
 origin = os.getcwd()
 path = os.getcwd()
-print("RunFile")
+print("RunFile 3.3.5")
 print("[HomePath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
 enable=0
 enableb=0
+enableac=0
+contentkey = {"_data_" : ''}
 
 while True:
     ok=0
@@ -75,8 +77,8 @@ while True:
         print("[NewPath]:{}".format(path))
         continue
 
-    for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile',
-                    'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse']:
+    for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','storecontent',
+                    'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_data_','_data_reset_']:
         if comms in user:
             ok=1
             break
@@ -88,6 +90,15 @@ while True:
         continue
     else:
         pass
+
+    if user=='_data_':
+        print(contentkey.get('_data_'))
+        continue
+
+    if user=='_data_reset_':
+        contentkey['_data_'] = ''
+        print("[_data_]:Contents of _data_ has been deleted.")
+        continue
 
     if user=='showpath':
         print()
@@ -101,19 +112,23 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v3.3.4")
+        print("RunFile v3.3.5")
         print("Used to access and run files with ease.")
         print("Commands:\n")
-        print("showpath              : Lists all the available directories and files in your current path.")
-        print("addpath>dir/subdir    : Adds a dir to your original path.")
-        print("findpath>dir/subdir   : Checks and displays all dirs or files which match.")
-        print("delpath               : Removes last added dir or subdir from path.")
-        print("homepath              : Goes back to original path.")
-        print("content>filename      : Displays content of the file.")
-        print("runfile>filename      : Runs or opens specified file.")
+        print("showpath              : List all the available directories and files in your current path.")
+        print("addpath>dir/subdir    : Add a dir to your original path.")
+        print("findpath>dir/subdir   : Check and display all dirs or files which match.")
+        print("delpath               : Remove last added dir or subdir from path.")
+        print("homepath              : Go back to original path.")
+        print("delfile>filename      : Delete the specified file.")
+        print("createfile>filename   : Create file of specified name.")
+        print("content>filename      : Display content of a file.")
+        print("storecontent>filename : Store content of a file in a key with name '_data_'.")
+        print("_data_                : Display stored file data.")
+        print("runfile>filename      : Run or open specified file.")
         print("runfunc>filename      : Access and run a function in a '.py' file.")
-        print("findfunc>filename     : Find a function in a '.py' file>")
-        print("funclist>filename     : Lists all the classes and functions in a '.py' file.")
+        print("findfunc>filename     : Find a function or functions in a '.py' file>")
+        print("funclist>filename     : List all the classes and functions in a '.py' file.")
         print("quit                  : Exit runfile.")
         print()
         continue
@@ -164,6 +179,23 @@ while True:
         continue
     else:
         pass
+
+
+    if bfile=='_data_':
+        bfile = contentkey.get('_data_')
+
+    if comm=='createfile':
+        if os.path.exists(path+"\\"+bfile)==True:
+            print("[FileExists]:File '{}' already exists.".format(bfile))
+        else:
+            try:
+                filee = open(path+"\\"+bfile,'x')
+                filee.close()
+            except:
+                print("[Error]:An error occured. Check your input and try again.")
+            else:
+                print("[FileCreated]:File '{}' has been created.".format(bfile))
+        continue
 
 
     if comm=='delfile':
@@ -253,7 +285,8 @@ while True:
     else:
         pass
 
-    if comm not in ['runfile','runfunc','funclist','findfunc','content','newhomepath','addpath','browse','findpath']:
+    if comm not in ['runfile','runfunc','funclist','findfunc','content','storecontent',
+                    'newhomepath','addpath','browse','findpath','addcontent']:
         print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
         continue
     elif comm in ['runfunc','funclist','findfunc'] and ext!='py':
@@ -266,8 +299,46 @@ while True:
         print("[FileNotFound]:File '{}' doesn't exist.".format(bfile))
         continue
 
+    if comm=='addcontent':
+        enableac=1
+        sub=0
+        print("[startfile]:{}".format(bfile))
+        while enableac==1:
+            try:
+                file = open(path+"\\"+bfile,'a')
+                con = input(" "*sub+"[Line]:")
+                if con=='[sub]':
+                    sub+=4
+                    continue
+                if con=='[endsub]':
+                    sub=sub-4
+                    if sub<=0:
+                        sub=0
+                    continue
+                if con=='_data_':
+                    con = contentkey.get('_data_')
+                if con=='[endfile]':
+                    file.close()
+                    enableac=0
+                    print("[FileUpdated]:New content has been added.")
+                    break
+                file.write(" "*sub+con+"\n")
+            except:
+                print("[Error]:An unexpected error occured. File will be closed.")
+                file.close()
+            else:
+                pass
+        file.close()
+            
+
     if ext=='py':
-        if comm=='content':
+        if comm=='storecontent':
+            filee = open(path+"\\"+bfile,'r')
+            data = filee.read()
+            filee.close()
+            contentkey["_data_"] = data
+            print("[_data_]:File content has been stored. Use key '_data_' to access the content.")
+        elif comm=='content':
             filee = open(path+"\\"+bfile,'r')
             data = filee.read()
             filee.close()
@@ -363,6 +434,12 @@ while True:
             data = filee.read()
             print("\n{}\n".format(data))
             filee.close()
+        elif comm=='storecontent':
+            filee = open(path+"\\"+bfile,'r')
+            data = filee.read()
+            filee.close()
+            contentkey["_data_"] = data
+            print("[_data_]:File content has been stored. Use key '_data_' to access the content.")
         elif comm == 'runfile':
             print("[Start]:{}".format(bfile))
             webbrowser.open(r"{}".format(path+"\\"+bfile))
