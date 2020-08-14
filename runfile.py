@@ -17,6 +17,12 @@ while True:
     else:
         pass
 
+    if user=='originpath':
+        path=origin
+        func=""
+        print("[NewPath]:{}\n".format(path))
+        continue
+
     if user=='showpath':
         print()
         for root, dirs, files in os.walk(path, topdown=False):
@@ -29,13 +35,14 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v2.4.")
+        print("RunFile v2.5.")
         print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath              : Lists all the available directories and files in your current path.")
         print("addpath:<dir/subdir>  : Adds a dir to your original path.")
         print("findpath:<dir/subdir> : Checks and displays all dirs or files which match.")
         print("delpath               : Removes last added dir or subdir from path.")
+        print("originpath            : Goes back to original path.")
         print("content:<filename>    : Displays content of the file.")
         print("runfile:<filename>    : Runs or opens specified file.")
         print("runfunc:<filename>    : Access and run a function in a '.py' file.")
