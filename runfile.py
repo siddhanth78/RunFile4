@@ -20,27 +20,28 @@ while True:
     if user=='showpath':
         print()
         for root, dirs, files in os.walk(path, topdown=False):
-           for name in files:
-              print(os.path.join(root, name))
-           for name in dirs:
-              print(os.path.join(root, name))
+            for name in files:
+                print(os.path.join(root, name))
+            for name in dirs:
+                print(os.path.join(root, name))
         print()
         continue
 
     if user=="help":
         print()
-        print("RunFile v2.2.")
+        print("RunFile v2.4.")
         print("Used to access and run files with ease.")
         print("Commands:\n")
-        print("showpath             : Lists all the available directories and files in your current path.")
-        print("addpath:<dir/subdir> : Adds a dir or subdir to your original path.")
-        print("delpath              : Removes last added dir or subdir from path.")
-        print("content:<filename>   : Displays content of the file.")
-        print("runfile:<filename>   : Runs or opens specified file.")
-        print("runfunc:<filename>   : Access and run a function in a '.py' file.")
-        print("findfunc:<filename>  : Find a function in a '.py' file>")
-        print("funclist:<filename>  : Lists all the classes and functions in a '.py' file.")
-        print("quit                 : Exit runfile.")
+        print("showpath              : Lists all the available directories and files in your current path.")
+        print("addpath:<dir/subdir>  : Adds a dir to your original path.")
+        print("findpath:<dir/subdir> : Checks and displays all dirs or files which match.")
+        print("delpath               : Removes last added dir or subdir from path.")
+        print("content:<filename>    : Displays content of the file.")
+        print("runfile:<filename>    : Runs or opens specified file.")
+        print("runfunc:<filename>    : Access and run a function in a '.py' file.")
+        print("findfunc:<filename>   : Find a function in a '.py' file>")
+        print("funclist:<filename>   : Lists all the classes and functions in a '.py' file.")
+        print("quit                  : Exit runfile.")
         print()
         continue
 
@@ -90,6 +91,18 @@ while True:
         continue
     else:
         pass
+
+    if comm=='findpath':
+        print()
+        for root, dirs, files in os.walk(path, topdown=False):
+            for name in files:
+                if bfile.lower() in name.lower():
+                    print(os.path.join(root, name))
+            for name in dirs:
+                if bfile.lower() in name.lower():
+                    print(os.path.join(root, name))
+        print()
+        continue
 
     if comm=='addpath':
         if "." in bfile:
