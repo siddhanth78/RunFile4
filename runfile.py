@@ -29,10 +29,10 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v2.1.")
+        print("RunFile v2.2.")
         print("Used to access and run files with ease.")
         print("Commands:\n")
-        print("showpath             : Lists all the available directories and sub-directories.")
+        print("showpath             : Lists all the available directories and files in your current path.")
         print("addpath:<dir/subdir> : Adds a dir or subdir to your original path.")
         print("delpath              : Removes last added dir or subdir from path.")
         print("content:<filename>   : Displays content of the file.")
@@ -106,7 +106,10 @@ while True:
         else:
             func = func+"."+bfile
         func=func.strip()
-        print("[NewPath]:{}\n".format(path))
+        print("[NewPath]:{}".format(path))
+        if bfile[0]=='.' or bfile[0]=='.':
+            print("[Warning]:[Command:addpath]:Dir/subdir beginning with '/' or '\\' may result in wrong path.")
+        print()
         continue
 
     try:
