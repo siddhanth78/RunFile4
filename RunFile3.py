@@ -7,7 +7,7 @@ else:
 
 
 origin = os.getcwd()
-path = os.getcwd()
+path = origin
 print("RunFile 3.3.5")
 print("[HomePath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
@@ -28,6 +28,11 @@ while True:
     if user=="quit":
         quit()
 
+
+    if user=='clear':
+        os.system('clr')
+        print("RunFile 3.3.5")
+        print("[HomePath]:{}\n".format(path))
 
     if user=='enablebrowser':
         try:
