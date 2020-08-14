@@ -1,9 +1,30 @@
-import os
+try:
+    import os
+except:
+    print("os module rquired.")
+else:
+    pass
+
+try:
+    import webbrowser
+except:
+    print("webbrowser module rquired.")
+else:
+    pass
+
+try:
+    from googlesearch import *
+except:
+    print("google module required. Enter in your command line : 'pip3 install google'")
+else:
+    pass
+
 
 origin = os.getcwd()
 path = os.getcwd()
 print("RunFile")
-print("[OriginalPath]:{}\n".format(path))
+print("[OriginalPath]:{}".format(path))
+browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
 
 while True:
@@ -16,6 +37,7 @@ while True:
         quit()
     else:
         pass
+    
 
     if user=='originpath':
         path=origin
@@ -35,9 +57,10 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v2.5.")
+        print("RunFile v3.1.")
         print("Used to access and run files with ease.")
         print("Commands:\n")
+        print("browse:<url>          : Search using browser.")
         print("showpath              : Lists all the available directories and files in your current path.")
         print("addpath:<dir/subdir>  : Adds a dir to your original path.")
         print("findpath:<dir/subdir> : Checks and displays all dirs or files which match.")
@@ -98,6 +121,14 @@ while True:
         continue
     else:
         pass
+
+    if comm=='browse':
+        print("[BrowserSearch]:{}".format(bfile))
+        browse_path = browserPath
+        for url in search(bfile, tld="co.in", num=1, stop = 1, pause = 2):
+            webbrowser.open("https://google.com/search?q=%s" % bfile)
+        continue 
+        
 
     if comm=='findpath':
         print()
@@ -254,7 +285,7 @@ while True:
             print("\n{}\n".format(data))
         elif comm == 'runfile':
             print("[Start]:{}".format(bfile))
-            os.system(r"{}".format(path+"\\"+bfile))
+            webbrowser.open(r"{}".format(path+"\\"+bfile))
             print("[Stop]:{}".format(bfile))
             
             
