@@ -30,9 +30,10 @@ while True:
 
 
     if user=='clear':
-        os.system('clr')
+        os.system('cls')
         print("RunFile 3.3.5")
         print("[HomePath]:{}\n".format(path))
+        continue
 
     if user=='enablebrowser':
         try:
