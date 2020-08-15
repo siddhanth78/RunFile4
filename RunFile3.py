@@ -409,21 +409,22 @@ while True:
                         pass
                 if '_datalist_>' in con:
                     conn = con
-                    liconn = conn.split(">")
-                    lineno = liconn[1].strip()
-                    lineno = lineno.strip('\n')
-                    if lineno.isnumeric()==False:
-                        print("[Error]:Line number required.")
-                        continue
-                    elif lineno.isnumeric()==True:
-                        lineno = int(lineno)
-                        try:
-                            con = conn.replace("_datalist_>"+str(lineno),contentkey.get('_datalist_')[lineno-1].strip("\n"))
-                        except:
-                            print("[Error]:Line number out of range.")
+                    liconn = conn.split("_datalist_>")
+                    for lines in liconn:
+                        lines = lines.strip('\n')
+                        if lines.strip()=="":
                             continue
-                        else:
-                            pass
+                        elif (lineno:=lines[0]).isnumeric()==False:
+                            continue
+                        elif (lineno:=lines[0]).isnumeric()==True:
+                            lineno = int(lineno)
+                            try:
+                                con = conn.replace("_datalist_>"+str(lineno),contentkey.get('_datalist_')[lineno-1].strip("\n"))
+                            except:
+                                print("[Error]:Line number out of range.")
+                                continue
+                            else:
+                                pass
                 if '_datalist_' in con:
                     con = con.replace("_datalist_",contentkey.get('_datalist_'))
                 if con=='[endfile]':
