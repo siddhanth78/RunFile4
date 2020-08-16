@@ -186,7 +186,7 @@ while True:
         continue
 
     if ">" not in user:
-        print("[Error]:Command and file name must be seperated by '>'.")
+        print("[Error]:Command and request must be seperated by '>'.")
         continue
         
     try:
