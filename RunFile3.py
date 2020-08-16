@@ -8,14 +8,14 @@ else:
 
 origin = os.getcwd()
 path = origin
-print("RunFile 3.4.1")
+print("RunFile 3.4.2")
 print("[HomePath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
 enable=0
 enableb=0
 enableac=0
-contentkey = {"_data_" : '', "_datalist_" : ""}
+contentkey = {"_file_" : '', "_lines_" : ""}
 
 while True:
     ok=0
@@ -31,7 +31,7 @@ while True:
 
     if user=='clear':
         os.system('cls')
-        print("RunFile 3.4.1")
+        print("RunFile 3.4.2")
         print("[HomePath]:{}\n".format(path))
         continue
 
@@ -83,9 +83,9 @@ while True:
         print("[NewPath]:{}".format(path))
         continue
 
-    for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','storecontent',
-                    'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_data_','_data_reset_',
-                  '_datalist_','_datalist_reset_','storecontentaslines','_fromdatalist_']:
+    for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store',
+                    'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
+                  '_lines_','_lines_reset_','storelines','_fromdatalist_']:
         if comms in user:
             ok=1
             break
@@ -98,22 +98,22 @@ while True:
     else:
         pass
 
-    if user=='_data_':
-        print(contentkey.get('_data_'))
+    if user=='_file_':
+        print(contentkey.get('_file_'))
         continue
 
-    if user=='_data_reset_':
-        contentkey['_data_'] = ''
-        print("[_data_]:Contents of _data_ has been deleted.")
+    if user=='_file_reset_':
+        contentkey['_file_'] = ''
+        print("[_file_]:Contents of _file_ has been deleted.")
         continue
 
-    if user=='_datalist_':
-        print(contentkey.get('_datalist_'))
+    if user=='_lines_':
+        print(contentkey.get('_lines_'))
         continue
 
-    if user=='_datalist_reset_':
-        contentkey['_datalist_'] = ''
-        print("[_datalist_]:Contents of _data_ has been deleted.")
+    if user=='_lines_reset_':
+        contentkey['_lines_'] = ''
+        print("[_lines_]:Contents of _file_ has been deleted.")
         continue
 
     if user=='showpath':
@@ -128,29 +128,29 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v3.4.1")
+        print("RunFile v3.4.2")
         print("Used to access and run files with ease.")
         print("Commands:\n")
-        print("showpath                      : List all the available directories and files in your current path.")
-        print("addpath>dir/subdir            : Add a dir to your original path.")
-        print("findpath>dir/subdir           : Check and display all dirs or files which match.")
-        print("delpath                       : Remove last added dir or subdir from path.")
-        print("homepath                      : Go back to original path.")
-        print("delfile>filename              : Delete the specified file.")
-        print("createfile>filename           : Create file of specified name.")
-        print("content>filename              : Display content of a file.")
-        print("clearcontent>filename         : Clear content of a file.")
-        print("storecontent>filename         : Store content of a file in a variable with name '_data_'.")
-        print("storecontentaslines>filename  : Store lines of a file in a list with name '_datalines_'.")
-        print("_data_                        : Display stored file data.")
-        print("_datalist_                        : Display stored file lines data.")
-        print("_datalist_>linenumber         : Display specified line.")
-        print("_fromdatalist_>linenumber     : Store a line from _datalist_ into _data_.")
-        print("runfile>filename              : Run or open specified file.")
-        print("runfunc>filename              : Access and run a function in a '.py' file.")
-        print("findfunc>filename             : Find a function or functions in a '.py' file>")
-        print("funclist>filename             : List all the classes and functions in a '.py' file.")
-        print("quit                          : Exit runfile.")
+        print("showpath                  : List all the available directories and files in your current path.")
+        print("addpath>dir/subdir        : Add a dir to your original path.")
+        print("findpath>dir/subdir       : Check and display all dirs or files which match.")
+        print("delpath                   : Remove last added dir or subdir from path.")
+        print("homepath                  : Go back to original path.")
+        print("delfile>filename          : Delete the specified file.")
+        print("createfile>filename       : Create file of specified name.")
+        print("content>filename          : Display content of a file.")
+        print("clearcontent>filename     : Clear content of a file.")
+        print("store>filename            : Store content of a file in a variable with name '_file_'.")
+        print("storelines>filename       : Store lines of a file in a list with name '_lines_'.")
+        print("_file_                    : Display stored file data.")
+        print("_lines_                   : Display stored file lines data.")
+        print("_lines_>linenumber        : Display specified line.")
+        print("_fromdatalist_>linenumber : Store a line from _lines_ into _file_.")
+        print("runfile>filename          : Run or open specified file.")
+        print("runfunc>filename          : Access and run a function in a '.py' file.")
+        print("findfunc>filename         : Find a function or functions in a '.py' file>")
+        print("funclist>filename         : List all the classes and functions in a '.py' file.")
+        print("quit                      : Exit runfile.")
         print()
         continue
 
@@ -201,7 +201,7 @@ while True:
     else:
         pass
 
-    if comm=='_datalist_':
+    if comm=='_lines_':
         if bfile.isnumeric()==False:
             print("[Error]:Line number required.")
             continue
@@ -209,10 +209,10 @@ while True:
             try:
                 bfile = int(bfile)
             except:
-                print("[Error]:_datalist_ accepts numbers only.")
+                print("[Error]:_lines_ accepts numbers only.")
             else:
                 try:
-                    print("[Line {0}]:{1}".format(bfile,contentkey.get('_datalist_')[bfile-1].strip("\n")))
+                    print("[Line {0}]:{1}".format(bfile,contentkey.get('_lines_')[bfile-1].strip("\n")))
                 except:
                     print("[Error]:Line number out of range.")
                 else:
@@ -227,22 +227,22 @@ while True:
             try:
                 bfile = int(bfile)
             except:
-                print("[Error]:_datalist_ accepts numbers only.")
+                print("[Error]:_lines_ accepts numbers only.")
             else:
                 try:
-                    contentkey['_data_'] = contentkey.get('_datalist_')[bfile-1].strip("\n")
-                    print("[_fromdatalist_]:Specified _datalist_ content has been stored in _data_. Use key '_data_' to access the content.")
+                    contentkey['_file_'] = contentkey.get('_lines_')[bfile-1].strip("\n")
+                    print("[_fromdatalist_]:Specified _lines_ content has been stored in _file_. Use key '_file_' to access the content.")
                 except:
                     print("[Error]:Line number out of range.")
                 else:
                     pass
             continue
 
-    if bfile=='_data_':
-        bfile = contentkey.get('_data_')
+    if bfile=='_file_':
+        bfile = contentkey.get('_file_')
 
-    if bfile=='_datalist_':
-        bfile = contentkey.get('_datalist_')
+    if bfile=='_lines_':
+        bfile = contentkey.get('_lines_')
 
     if comm=='createfile':
         if os.path.exists(path+"\\"+bfile)==True:
@@ -345,7 +345,7 @@ while True:
     else:
         pass
 
-    if comm not in ['runfile','runfunc','funclist','findfunc','content','storecontent','storecontentaslines',
+    if comm not in ['runfile','runfunc','funclist','findfunc','content','store','storelines',
                     'newhomepath','addpath','browse','findpath','addcontent','_fromdatalist_']:
         print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
         continue
@@ -360,12 +360,12 @@ while True:
         continue
 
 
-    if comm=='storecontentaslines':
+    if comm=='storelines':
         filee = open(path+"\\"+bfile,'r')
         data = filee.readlines()
         filee.close()
-        contentkey["_datalist_"] = data
-        print("[_datalist_]:File content has been stored. Use key '_datalist_' to access the content.")
+        contentkey["_lines_"] = data
+        print("[_lines_]:File content has been stored. Use key '_lines_' to access the content.")
     elif comm=='content':
         filee = open(path+"\\"+bfile,'r')
         data = filee.read()
@@ -376,12 +376,12 @@ while True:
         file.write("")
         filee.close()
         print("[FileCleared]:File content has been deleted.")
-    elif comm=='storecontent':
+    elif comm=='store':
         filee = open(path+"\\"+bfile,'r')
         data = filee.read()
         filee.close()
-        contentkey["_data_"] = data.strip()
-        print("[_data_]:File content has been stored. Use key '_data_' to access the content.")
+        contentkey["_file_"] = data.strip()
+        print("[_file_]:File content has been stored. Use key '_file_' to access the content.")
         continue
 
 
@@ -401,15 +401,15 @@ while True:
                     if sub<=0:
                         sub=0
                     continue
-                if '_data_' in con:
-                    con = con.replace("_data_",contentkey.get('_data_').strip("\n"))
+                if '_file_' in con:
+                    con = con.replace("_file_",contentkey.get('_file_').strip("\n"))
                     if con.strip()=='':
-                        con='_data_'
+                        con='_file_'
                     else:
                         pass
-                if '_datalist_>' in con:
+                if '_lines_>' in con:
                     conn = con
-                    liconn = conn.split("_datalist_>")
+                    liconn = conn.split("_lines_>")
                     for lines in liconn:
                         lines = lines.strip('\n')
                         if lines.strip()=="":
@@ -419,14 +419,14 @@ while True:
                         elif (lineno:=lines[0]).isnumeric()==True:
                             lineno = int(lineno)
                             try:
-                                con = conn.replace("_datalist_>"+str(lineno),contentkey.get('_datalist_')[lineno-1].strip("\n"))
+                                con = conn.replace("_lines_>"+str(lineno),contentkey.get('_lines_')[lineno-1].strip("\n"))
                             except:
                                 print("[Error]:Line number out of range.")
                                 continue
                             else:
                                 pass
-                if '_datalist_' in con:
-                    con = con.replace("_datalist_",contentkey.get('_datalist_'))
+                if '_lines_' in con:
+                    con = con.replace("_lines_",contentkey.get('_lines_'))
                 if con=='[endfile]':
                     file.close()
                     enableac=0
