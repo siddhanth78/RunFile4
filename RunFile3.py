@@ -12,7 +12,6 @@ except:
 else:
     pass
 
-
 origin = os.getcwd()
 path = origin
 print("RunFile 3.4.2")
@@ -447,9 +446,15 @@ while True:
             
 
     if ext=='py':
+        filee = open(path+"\\"+bfile,'r')
+        datar = filee.read()
+        filee.close()
         if comm=='runfile':
             print("[Start]:{}".format(bfile))
-            webbrowser.open(r'{}'.format(path+"\\"+bfile))
+            if "#RunFile" in datar:
+                os.system(r'{}'.format(path+"\\"+bfile))
+            else:
+                webbrowser.open(r'{}'.format(path+"\\"+bfile))
             print("[Stop]:{}".format(bfile))
         elif comm=='runfunc':
             arg = input("[Function]:")
@@ -467,7 +472,10 @@ while True:
             print("[Start]:{}".format(bfile))
             
             if arg=='':
-                webbrowser.open(r'{}'.format(path+"\\"+bfile))
+                if "#RunFile" in datar:
+                    os.system(r'{}'.format(path+"\\"+bfile))
+                else:
+                    webbrowser.open(r'{}'.format(path+"\\"+bfile))
             else:
                 try:
                     print("[Execute]:{}".format(runfunc))
