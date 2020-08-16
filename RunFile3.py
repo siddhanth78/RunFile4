@@ -1,7 +1,14 @@
 try:
     import os
 except:
-    print("os module rquired.")
+    print("[PythonModuleNotFound]:os module rquired.")
+else:
+    pass
+
+try:
+    import webbrowser
+except:
+    print("[PythonModuleNotFound]:webbrowser module rquired.")
 else:
     pass
 
@@ -36,13 +43,6 @@ while True:
         continue
 
     if user=='enablebrowser':
-        try:
-            import webbrowser
-        except:
-            print("[PythonModuleNotFound]:webbrowser module rquired.")
-            continue
-        else:
-            pass
         try:
             from googlesearch import *
         except:
@@ -448,7 +448,7 @@ while True:
     if ext=='py':
         if comm=='runfile':
             print("[Start]:{}".format(bfile))
-            os.system(r"{}".format(path+"\\"+bfile))
+            webbrowser.open(r'{}'.format(path+"\\"+bfile))
             print("[Stop]:{}".format(bfile))
         elif comm=='runfunc':
             arg = input("[Function]:")
@@ -466,7 +466,7 @@ while True:
             print("[Start]:{}".format(bfile))
             
             if arg=='':
-                os.system(path+"\\"+bfile)
+                webbrowser.open(r'{}'.format(path+"\\"+bfile))
             else:
                 try:
                     print("[Execute]:{}".format(runfunc))
