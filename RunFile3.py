@@ -35,8 +35,37 @@ while True:
     if user=="quit":
         quit()
 
+    if user=="help":
+        print()
+        print("RunFile v3.4.2")
+        print("Used to access and run files with ease.")
+        print("Commands:\n")
+        print("showpath                  : List all the available directories and files in your current path.")
+        print("addpath>dir/subdir        : Add a dir to your original path.")
+        print("findpath>dir/subdir       : Check and display all dirs or files which match.")
+        print("delpath                   : Remove last added dir or subdir from path.")
+        print("homepath                  : Go back to original path.")
+        print("delfile>filename          : Delete the specified file.")
+        print("createfile>filename       : Create file of specified name.")
+        print("content>filename          : Display content of a file.")
+        print("clearcontent>filename     : Clear content of a file.")
+        print("store>filename            : Store content of a file in a variable with name '_file_'.")
+        print("storelines>filename       : Store lines of a file in a list with name '_lines_'.")
+        print("_file_                    : Display stored file data.")
+        print("_lines_                   : Display stored file lines data.")
+        print("_lines_>linenumber        : Display specified line.")
+        print("_fromdatalist_>linenumber : Store a line from _lines_ into _file_.")
+        print("runfile>filename          : Run or open specified file.")
+        print("runfunc>filename          : Access and run a function in a '.py' file.")
+        print("findfunc>filename         : Find a function or functions in a '.py' file>")
+        print("funclist>filename         : List all the classes and functions in a '.py' file.")
+        print("clear/clr                 : Clear runfile terminal.")
+        print("quit                      : Exit runfile.")
+        print()
+        continue
 
-    if user=='clear':
+
+    if user=='clear' or user=='clr':
         os.system('cls')
         print("RunFile 3.4.2")
         print("[HomePath]:{}\n".format(path))
@@ -123,34 +152,6 @@ while True:
                 print(os.path.join(root, name))
             for name in dirs:
                 print(os.path.join(root, name))
-        print()
-        continue
-
-    if user=="help":
-        print()
-        print("RunFile v3.4.2")
-        print("Used to access and run files with ease.")
-        print("Commands:\n")
-        print("showpath                  : List all the available directories and files in your current path.")
-        print("addpath>dir/subdir        : Add a dir to your original path.")
-        print("findpath>dir/subdir       : Check and display all dirs or files which match.")
-        print("delpath                   : Remove last added dir or subdir from path.")
-        print("homepath                  : Go back to original path.")
-        print("delfile>filename          : Delete the specified file.")
-        print("createfile>filename       : Create file of specified name.")
-        print("content>filename          : Display content of a file.")
-        print("clearcontent>filename     : Clear content of a file.")
-        print("store>filename            : Store content of a file in a variable with name '_file_'.")
-        print("storelines>filename       : Store lines of a file in a list with name '_lines_'.")
-        print("_file_                    : Display stored file data.")
-        print("_lines_                   : Display stored file lines data.")
-        print("_lines_>linenumber        : Display specified line.")
-        print("_fromdatalist_>linenumber : Store a line from _lines_ into _file_.")
-        print("runfile>filename          : Run or open specified file.")
-        print("runfunc>filename          : Access and run a function in a '.py' file.")
-        print("findfunc>filename         : Find a function or functions in a '.py' file>")
-        print("funclist>filename         : List all the classes and functions in a '.py' file.")
-        print("quit                      : Exit runfile.")
         print()
         continue
 
