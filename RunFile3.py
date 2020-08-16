@@ -14,7 +14,7 @@ else:
 
 origin = os.getcwd()
 path = origin
-print("RunFile 3.4.2")
+print("RunFile 3.4.3")
 print("[HomePath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
@@ -36,7 +36,7 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v3.4.2")
+        print("RunFile v3.4.3")
         print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath                  : List all the available directories and files in your current path.")
@@ -58,6 +58,7 @@ while True:
         print("runfunc>filename          : Access and run a function in a '.py' file.")
         print("findfunc>filename         : Find a function or functions in a '.py' file>")
         print("funclist>filename         : List all the classes and functions in a '.py' file.")
+        print("RunFile>filename          : Run and display output of a '.py' file on the terminal.")
         print("clear/clr                 : Clear runfile terminal.")
         print("quit                      : Exit runfile.")
         print()
@@ -66,7 +67,7 @@ while True:
 
     if user=='clear' or user=='clr':
         os.system('cls')
-        print("RunFile 3.4.2")
+        print("RunFile 3.4.3")
         print("[HomePath]:{}\n".format(path))
         continue
 
@@ -113,7 +114,7 @@ while True:
 
     for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store',
                     'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
-                  '_lines_','_lines_reset_','storelines','_fromdatalist_']:
+                  '_lines_','_lines_reset_','storelines','_fromdatalist_','RunFile','clearcontent']:
         if comms in user:
             ok=1
             break
@@ -192,7 +193,7 @@ while True:
     try:
         li = user.split('>')
         comm = li[0]
-        comm = comm.strip().lower()
+        comm = comm.strip()
         bfile = li[1]
         bfile = bfile.strip()
     except:
@@ -330,7 +331,7 @@ while True:
             print("[Warning]:Invalid character '-' found. Files may or may not open and 'runfunc' will not work.")
         print("[NewPath]:{}".format(path))
         if bfile[0]=='.' or bfile[0]=='.':
-            print("[Warning]:[Command:addpath]:Dir/subdir beginning with '/' or '\\' may result in wrong path.")
+            print("[Warning]:Dir/subdir request beginning with '/' or '\\' may result in wrong path.")
         continue
 
     try:
@@ -347,8 +348,8 @@ while True:
     else:
         pass
 
-    if comm not in ['runfile','runfunc','funclist','findfunc','content','store','storelines',
-                    'newhomepath','addpath','browse','findpath','addcontent','_fromdatalist_']:
+    if comm not in ['runfile','runfunc','funclist','findfunc','content','store','storelines','[RunFile]',
+                    'newhomepath','addpath','browse','findpath','addcontent','_fromdatalist_','clearcontent',]:
         print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
         continue
     elif comm in ['runfunc','funclist','findfunc'] and ext!='py':
@@ -375,7 +376,7 @@ while True:
         filee.close()
     elif comm=='clearcontent':
         filee = open(path+"\\"+bfile,'w')
-        file.write("")
+        filee.write("")
         filee.close()
         print("[FileCleared]:File content has been deleted.")
     elif comm=='store':
@@ -386,6 +387,14 @@ while True:
         print("[_file_]:File content has been stored. Use key '_file_' to access the content.")
         continue
 
+
+    if comm=='RunFile':
+        filee = open(path+"\\"+bfile,'a')
+        filee.write("#RunFile\n")
+        filee.close()
+        if ext=="py":
+            print("[RunFile]:The output of this file will now be displayed on the terminal.")
+        continue
 
     if comm=='addcontent':
         enableac=1
@@ -398,6 +407,8 @@ while True:
                 if con=='[sub]':
                     sub+=4
                     continue
+                if con=='[RunFile]':
+                    con = "#RunFile"
                 if con=='[endsub]':
                     sub=sub-4
                     if sub<=0:
