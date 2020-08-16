@@ -327,7 +327,7 @@ while True:
             func = func+"."+bfile
         func=func.strip()
         if "-" in func:
-            print("[Warning]:Invalid character '-' found. Files may or may not open and 'runfunc' will not work correctly.")
+            print("[Warning]:Invalid character '-' found. Files may or may not open and 'runfunc' will not work.")
         print("[NewPath]:{}".format(path))
         if bfile[0]=='.' or bfile[0]=='.':
             print("[Warning]:[Command:addpath]:Dir/subdir beginning with '/' or '\\' may result in wrong path.")
