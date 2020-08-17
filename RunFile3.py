@@ -53,7 +53,7 @@ while True:
         print("_file_                    : Display stored file data.")
         print("_lines_                   : Display stored file lines data.")
         print("_lines_>linenumber        : Display specified line.")
-        print("_fromdatalist_>linenumber : Store a line from _lines_ into _file_.")
+        print("_fromlines_>linenumber : Store a line from _lines_ into _file_.")
         print("runfile>filename          : Run or open specified file.")
         print("runfunc>filename          : Access and run a function in a '.py' file.")
         print("findfunc>filename         : Find a function or functions in a '.py' file>")
@@ -114,7 +114,7 @@ while True:
 
     for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store',
                     'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
-                  '_lines_','_lines_reset_','storelines','_fromdatalist_','RunFile','clearcontent']:
+                  '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent']:
         if comms in user:
             ok=1
             break
@@ -220,7 +220,7 @@ while True:
                     pass
             continue
 
-    if comm=='_fromdatalist_':
+    if comm=='_fromlines_':
         if bfile.isnumeric()==False:
             print("[Error]:Line number required.")
             continue
@@ -348,8 +348,8 @@ while True:
     else:
         pass
 
-    if comm not in ['runfile','runfunc','funclist','findfunc','content','store','storelines','[RunFile]',
-                    'newhomepath','addpath','browse','findpath','addcontent','_fromdatalist_','clearcontent',]:
+    if comm not in ['runfile','runfunc','funclist','findfunc','content','store','storelines','RunFile',
+                    'newhomepath','addpath','browse','findpath','addcontent','_fromlines_','clearcontent',]:
         print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
         continue
     elif comm in ['runfunc','funclist','findfunc'] and ext!='py':
