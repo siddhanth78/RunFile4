@@ -52,7 +52,6 @@ while True:
     if user=="help":
         print()
         print("RunFile v3.4.4")
-        print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath               : List all the available directories and files in your current path.")
         print("addpath>dir/subdir     : Add a dir to your original path.")
