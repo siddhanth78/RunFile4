@@ -20,29 +20,44 @@ browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
 enable=0
 enableb=0
-enableac=0
 contentkey = {"_file_" : '', "_lines_" : ""}
 user=''
-historypath = 'C:\\.RunFile_hist'
+historydir = path+'\\.runfile_history'
+counthist=0
+countcomp=0
+licommand=[]
+
+commandlist = ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store','clearhistory',
+            'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
+            '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear','history']
+
+if os.path.exists(historydir)==True:
+    filehist = open(historydir,'r')
+    histdata = filehist.readlines()
+    filehist.close()
+    for i in range(0,len(histdata)):
+        histdata[i] = histdata[i].strip()
+        histdata[i] = histdata[i].strip('\n')
 
 while True:
     ok=0
     if user=='clearhistory' or user=='history' or user=='':
         pass
     else:
-        if os.path.exists(historypath)==False:
-            filee = open(historypath,'x')
+        if os.path.exists(historydir)==False:
+            filee = open(historydir,'x')
             filee.close()
-        filee = open(historypath,'r')
+        filee = open(historydir,'r')
         data = filee.readlines()
         filee.close()
         for i in range(0,len(data)):
             data[i] = data[i].strip()
             data[i] = data[i].strip('\n')
         if user not in data:
-            filee = open(historypath,'a')
+            filee = open(historydir,'a')
             filee.write(user+'\n')
             filee.close()
+
     user = input("[Command]:")
     user = user.strip()
         
@@ -76,7 +91,7 @@ while True:
         print("funclist>filename      : List all the classes and functions in a '.py' file.")
         print("RunFile>filename       : Mark a '.py' file to display output of the code on the runfile terminal.")
         print("history                : Display previously used commands.")
-        print("clearhistory           : Clear all the previously used commands.")
+        print("clearhistory           : Clear all previously used commands.")
         print("clear/clr              : Clear runfile terminal.")
         print("quit                   : Exit runfile.")
         print()
@@ -99,11 +114,10 @@ while True:
         enableb=1
         print("[BrowserSearch]:Disabled")
         continue
-        
 
     if user=='enablenhp':
         enable=1
-        print("[NewHomePath]:Enabled")
+        print("[Newhomepath]:Enabled")
         print("[Warning]:May or may not give desired output. Can be disabled with 'disablenhp' command.")
         continue
 
@@ -112,13 +126,11 @@ while True:
         func=""
         origin = os.getcwd()
         path=origin
-        print("[NewHomePath]:Disabled")
-        print("[HomePath]:{}".format(path))
+        print("[Newhomepath]:Disabled")
+        print("[homepath]:{}".format(path))
         continue
 
-    for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store','clearhistory',
-                  'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
-                  '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear','history']:
+    for comms in commandlist:
         if comms in user:
             ok=1
             break
@@ -132,28 +144,23 @@ while True:
         pass
 
     if user=='history':
-        if os.path.exists(historypath)==False:
+        if os.path.exists(historydir)==False:
             print("[History]:No history found.")
             continue
         else:
-            try:
-                filee = open(historypath,'r')
-                data = filee.read()
-            except:
-                print("[Error]:An unexpected error occured.")
-                filee.close()
-            else:
-                filee.close()
-                print("\n{}".format(data))
+            print()
+            for h in histdata:
+                print(h)
+            print()
         continue
 
     if user=='clearhistory':
-        if os.path.exists(historypath)==False:
+        if os.path.exists(historydir)==False:
             print("[History]:No history found.")
             continue
         else:
             try:
-                os.remove(historypath)
+                os.remove(historydir)
             except:
                 print("[Error]:An unexpected error occured.")
             else:
@@ -172,7 +179,7 @@ while True:
     if user=='homepath':
         path=origin
         func=""
-        print("[NewPath]:{}".format(path))
+        print("[HomePath]:{}".format(path))
         continue
 
     if user=='_file_':
@@ -444,7 +451,7 @@ while True:
         enableac=1
         sub=0
         print("[Startfile]:{}".format(bfile))
-        while enableac==1:
+        while True:
             try:
                 file = open(path+"\\"+bfile,'a')
                 con = input(" "*sub+"[Line]:")
@@ -493,7 +500,6 @@ while True:
             except:
                 print("[Error]:An unexpected error occured. File will be closed.")
                 file.close()
-                enableac=0
                 break
             else:
                 pass
