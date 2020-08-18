@@ -26,7 +26,7 @@ user=''
 
 while True:
     ok=0
-    if user=='clearhistory':
+    if user=='clearhistory' or user=='history':
         pass
     elif user!="":
         if os.path.exists(path+'\\runfile_hist.txt')==False:
