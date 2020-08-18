@@ -14,7 +14,7 @@ else:
 
 origin = os.getcwd()
 path = origin
-print("RunFile 3.4.3")
+print("RunFile 3.4.4")
 print("[HomePath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
@@ -22,9 +22,23 @@ enable=0
 enableb=0
 enableac=0
 contentkey = {"_file_" : '', "_lines_" : ""}
+user=''
 
 while True:
     ok=0
+    if user=='clearhistory':
+        pass
+    elif user!="":
+        filee = open(path+'\\runfile_hist.txt','r')
+        data = filee.readlines()
+        filee.close()
+        for i in range(0,len(data)):
+            data[i] = data[i].strip()
+            data[i] = data[i].strip('\n')
+        if user not in data:
+            filee = open(path+'\\runfile_hist.txt','a')
+            filee.write(user+'\n')
+            filee.close()
     user = input("[Command]:")
     user = user.strip()
         
@@ -33,7 +47,7 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v3.4.3")
+        print("RunFile v3.4.4")
         print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath               : List all the available directories and files in your current path.")
@@ -58,6 +72,8 @@ while True:
         print("findfunc>filename      : Find a function or functions in a '.py' file>")
         print("funclist>filename      : List all the classes and functions in a '.py' file.")
         print("RunFile>filename       : Mark a '.py' file to display output of the code on the runfile terminal.")
+        print("history                : Display previously used commands.")
+        print("clearhistory           : Clear all the previously used commands.")
         print("clear/clr              : Clear runfile terminal.")
         print("quit                   : Exit runfile.")
         print()
@@ -97,9 +113,9 @@ while True:
         print("[HomePath]:{}".format(path))
         continue
 
-    for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store',
-                    'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
-                  '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear']:
+    for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store','clearhistory',
+                  'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
+                  '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear','history']:
         if comms in user:
             ok=1
             break
@@ -112,9 +128,23 @@ while True:
     else:
         pass
 
+    if user=='history':
+        filee = open(path+'\\runfile_hist.txt','r')
+        data = filee.read()
+        filee.close()
+        print("\n{}".format(data))
+        continue
+
+    if user=='clearhistory':
+        filee = open(path+'\\runfile_hist.txt','w')
+        filee.write('')
+        filee.close()
+        print("[History]:History has been cleared.")
+        continue
+
     if user=='clear' or user=='clr':
         os.system('cls')
-        print("RunFile 3.4.3")
+        print("RunFile 3.4.4")
         print("[HomePath]:{}\n".format(path))
         continue
 
