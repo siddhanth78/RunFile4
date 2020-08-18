@@ -14,7 +14,7 @@ else:
 
 origin = os.getcwd()
 path = origin
-print("RunFile 3.4.4")
+print("RunFile 3.4.3")
 print("[HomePath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
@@ -29,6 +29,9 @@ while True:
     if user=='clearhistory':
         pass
     elif user!="":
+        if os.path.exists(path+'\\runfile_hist.txt')==False:
+            filee = open(path+'\\runfile_hist.txt','x')
+            filee.close()
         filee = open(path+'\\runfile_hist.txt','r')
         data = filee.readlines()
         filee.close()
@@ -47,7 +50,7 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v3.4.4")
+        print("RunFile v3.4.3")
         print("Used to access and run files with ease.")
         print("Commands:\n")
         print("showpath               : List all the available directories and files in your current path.")
@@ -129,22 +132,37 @@ while True:
         pass
 
     if user=='history':
-        filee = open(path+'\\runfile_hist.txt','r')
-        data = filee.read()
-        filee.close()
-        print("\n{}".format(data))
+        if os.path.exists(path+'\\runfile_hist.txt')==False:
+            print("[History]:No history found.")
+            continue
+        else:
+            try:
+                filee = open(path+'\\runfile_hist.txt','r')
+                data = filee.read()
+            except:
+                print("[Error]:An unexpected error occured.")
+                filee.close()
+            else:
+                filee.close()
+                print("\n{}".format(data))
         continue
 
     if user=='clearhistory':
-        filee = open(path+'\\runfile_hist.txt','w')
-        filee.write('')
-        filee.close()
-        print("[History]:History has been cleared.")
+        if os.path.exists(path+'\\runfile_hist.txt')==False:
+            print("[History]:No history found.")
+            continue
+        else:
+            try:
+                os.remove(path+'\\runfile_hist.txt')
+            except:
+                print("[Error]:An unexpected error occured.")
+            else:
+                print("[History]:History has been cleared.")
         continue
 
     if user=='clear' or user=='clr':
         os.system('cls')
-        print("RunFile 3.4.4")
+        print("RunFile 3.4.3")
         print("[HomePath]:{}\n".format(path))
         continue
 
