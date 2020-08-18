@@ -23,13 +23,13 @@ enableb=0
 enableac=0
 contentkey = {"_file_" : '', "_lines_" : ""}
 user=''
-historypath = path+'\\runfileLocalHistory.txt'
+historypath = 'C:\\.RunFile_hist'
 
 while True:
     ok=0
-    if user=='clearhistory' or user=='history':
+    if user=='clearhistory' or user=='history' or user=='':
         pass
-    elif user!="":
+    else:
         if os.path.exists(historypath)==False:
             filee = open(historypath,'x')
             filee.close()
@@ -40,7 +40,7 @@ while True:
             data[i] = data[i].strip()
             data[i] = data[i].strip('\n')
         if user not in data:
-            filee = open(path+'\\runfile_hist.txt','a')
+            filee = open(historypath,'a')
             filee.write(user+'\n')
             filee.close()
     user = input("[Command]:")
