@@ -30,9 +30,6 @@ while True:
         
     if user=="":
         continue
-    
-    if user=="quit":
-        quit()
 
     if user=="help":
         print()
@@ -54,21 +51,16 @@ while True:
         print("_lines_                : Use to get stored file lines.")
         print("_lines_>linenumber     : Use to get specified line from _lines_.")
         print("_fromlines_>linenumber : Store a line from _lines_ into _file_.")
-        print("runfile>filename       : Run or open specified file.")
+        print("_file_reset_           : Clear data stored in _file_.")
+        print("_lines_reset_          : Clear data stored in _lines_.")
+        print("runfile>filename       : Run or open specified file. Output of code will be displayed on a different teminal.")
         print("runfunc>filename       : Access and run a function in a '.py' file.")
         print("findfunc>filename      : Find a function or functions in a '.py' file>")
         print("funclist>filename      : List all the classes and functions in a '.py' file.")
-        print("RunFile>filename       : Run and display output of a '.py' file on the terminal.")
+        print("RunFile>filename       : Mark a '.py' file to display output of the code on the runfile terminal.")
         print("clear/clr              : Clear runfile terminal.")
         print("quit                   : Exit runfile.")
         print()
-        continue
-
-
-    if user=='clear' or user=='clr':
-        os.system('cls')
-        print("RunFile 3.4.3")
-        print("[HomePath]:{}\n".format(path))
         continue
 
     if user=='enablebrowser':
@@ -104,17 +96,10 @@ while True:
         print("[NewHomePath]:Disabled")
         print("[HomePath]:{}".format(path))
         continue
-    
-
-    if user=='homepath':
-        path=origin
-        func=""
-        print("[NewPath]:{}".format(path))
-        continue
 
     for comms in ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store',
                     'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
-                  '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent']:
+                  '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear']:
         if comms in user:
             ok=1
             break
@@ -126,6 +111,21 @@ while True:
         continue
     else:
         pass
+
+    if user=='clear' or user=='clr':
+        os.system('cls')
+        print("RunFile 3.4.3")
+        print("[HomePath]:{}\n".format(path))
+        continue
+
+    if user=="quit":
+        quit()
+
+    if user=='homepath':
+        path=origin
+        func=""
+        print("[NewPath]:{}".format(path))
+        continue
 
     if user=='_file_':
         print(contentkey.get('_file_'))
@@ -348,11 +348,7 @@ while True:
     else:
         pass
 
-    if comm not in ['runfile','runfunc','funclist','findfunc','content','store','storelines','RunFile',
-                    'newhomepath','addpath','browse','findpath','addcontent','_fromlines_','clearcontent',]:
-        print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(comm))
-        continue
-    elif comm in ['runfunc','funclist','findfunc'] and ext!='py':
+    if comm in ['runfunc','funclist','findfunc'] and ext!='py':
         print("[InvalidCommand]:Command '{}' works with '.py' files only.".format(comm))
         continue
     else:
