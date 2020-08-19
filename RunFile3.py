@@ -1,14 +1,14 @@
 try:
     import os
 except:
-    print("[PythonModuleNotFound]:os module rquired.")
+    print("[PythonModuleNotFound]:os module rquired for file operations.")
 else:
     pass
 
 try:
     import webbrowser
 except:
-    print("[PythonModuleNotFound]:webbrowser module rquired.")
+    print("[PythonModuleNotFound]:webbrowser module rquired for file operations.")
 else:
     pass
 
@@ -31,14 +31,6 @@ commandlist = ['homepath','delpath','showpath','quit','newhomepath','delfile','c
             'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
             '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear','history']
 
-if os.path.exists(historydir)==True:
-    filehist = open(historydir,'r')
-    histdata = filehist.readlines()
-    filehist.close()
-    for i in range(0,len(histdata)):
-        histdata[i] = histdata[i].strip()
-        histdata[i] = histdata[i].strip('\n')
-
 while True:
     ok=0
     if user=='clearhistory' or user=='history' or user=='':
@@ -47,16 +39,9 @@ while True:
         if os.path.exists(historydir)==False:
             filee = open(historydir,'x')
             filee.close()
-        filee = open(historydir,'r')
-        data = filee.readlines()
+        filee = open(historydir,'a')
+        filee.write(user+'\n')
         filee.close()
-        for i in range(0,len(data)):
-            data[i] = data[i].strip()
-            data[i] = data[i].strip('\n')
-        if user not in data:
-            filee = open(historydir,'a')
-            filee.write(user+'\n')
-            filee.close()
 
     user = input("[Command]:")
     user = user.strip()
@@ -148,6 +133,12 @@ while True:
             print("[History]:No history found.")
             continue
         else:
+            filehist = open(historydir,'r')
+            histdata = filehist.readlines()
+            filehist.close()
+            for i in range(0,len(histdata)):
+                histdata[i] = histdata[i].strip()
+                histdata[i] = histdata[i].strip('\n')
             print()
             for h in histdata:
                 print(h)
