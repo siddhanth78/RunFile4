@@ -1,16 +1,5 @@
-try:
-    import os
-except:
-    print("[PythonModuleNotFound]:os module rquired for file operations.")
-else:
-    pass
-
-try:
-    import webbrowser
-except:
-    print("[PythonModuleNotFound]:webbrowser module rquired for file operations.")
-else:
-    pass
+import os
+import webbrowser
 
 origin = os.getcwd()
 path = origin
