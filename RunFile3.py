@@ -1,9 +1,22 @@
 import os
 import webbrowser
+import subprocess
+import sys
+
+try:
+    import keyboard
+except:
+    print("[PythonModuleNotFound]:Installing module keyboard.\n")
+    subprocess.check_call([sys.executable, '-m', 'pip', 'install','keyboard'])
+    print()
+    import keyboard
+else:
+    pass
+    
 
 origin = os.getcwd()
 path = origin
-print("RunFile 3.4.4")
+print("RunFile 3.4.5")
 print("[HomePath]:{}\n".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
@@ -12,22 +25,88 @@ enableb=0
 contentkey = {"_file_" : '', "_lines_" : ""}
 user=''
 historydir = path+'\\.runfile_history'
-counthist=0
-countcomp=0
 licommand=[]
 
-commandlist = ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store','clearhistory',
+commandlist = ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store',
             'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
-            '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear','history']
+            '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear']
+
+if os.path.exists(historydir)==True:
+    filehist = open(historydir,'r')
+    histdata = filehist.readlines()
+    filehist.close()
+    for i in range(0,len(histdata)):
+        histdata[i] = histdata[i].strip()
+        histdata[i] = histdata[i].strip('\n')
+
+if os.path.exists(historydir)==False:
+    filee = open(historydir,'x')
+    filee.close()
+    filehist = open(historydir,'r')
+    histdata = filehist.readlines()
+    filehist.close()
+    for i in range(0,len(histdata)):
+        histdata[i] = histdata[i].strip()
+        histdata[i] = histdata[i].strip('\n')
+
+counthist=-1
+countrevhist=len(histdata)+counthist
+hc=0
+rhc=0
+beg=0
+
+def history_list():
+    global histdata,counthist,countrevhist,hc,rhc,beg
+    keyboard.press_and_release('shift+end')
+    keyboard.press_and_release('backspace')
+    try:
+        if beg==0:
+            beg=1
+        elif hc==0 and beg!=0:
+            counthist-=1
+        countrevhist=len(histdata)+counthist
+        keyboard.write(histdata[counthist])
+        counthist-=1
+        if counthist==-len(histdata)-1:
+            counthist+=1
+            countrevhist=len(histdata)+counthist
+    except:
+        keyboard.write('')
+    finally:
+        hc=1
+        rhc=0
+
+def rev_history_list():
+    global histdata,counthist,countrevhist,hc,rhc,beg
+    keyboard.press_and_release('shift+end')
+    keyboard.press_and_release('backspace')
+    try:
+        if beg==0:
+            beg=1
+        elif rhc==0 and beg!=0:
+            countrevhist+=1
+        counthist=-len(histdata)+countrevhist
+        keyboard.write(histdata[countrevhist])
+        countrevhist+=1
+        if countrevhist==len(histdata):
+            countrevhist-=1
+            counthist=-len(histdata)+countrevhist
+    except:
+        keyboard.write('')
+    finally:
+        hc=0
+        rhc=1
+    
+keyboard.add_hotkey('ctrl+shift+enter',history_list)
+keyboard.add_hotkey('ctrl+shift+backspace',rev_history_list)
 
 while True:
+    counthist=-1
     ok=0
-    if user=='clearhistory' or user=='history' or user=='':
+    if user=='':
         pass
     else:
-        if os.path.exists(historydir)==False:
-            filee = open(historydir,'x')
-            filee.close()
+        histdata.append(user)
         filee = open(historydir,'a')
         filee.write(user+'\n')
         filee.close()
@@ -40,7 +119,7 @@ while True:
 
     if user=="help":
         print()
-        print("RunFile v3.4.4")
+        print("RunFile v3.4.5")
         print("Commands:\n")
         print("showpath               : List all the available directories and files in your current path.")
         print("addpath>dir/subdir     : Add a dir to your original path.")
@@ -64,8 +143,6 @@ while True:
         print("findfunc>filename      : Find a function or functions in a '.py' file>")
         print("funclist>filename      : List all the classes and functions in a '.py' file.")
         print("RunFile>filename       : Mark a '.py' file to display output of the code on the runfile terminal.")
-        print("history                : Display previously used commands.")
-        print("clearhistory           : Clear all previously used commands.")
         print("clear/clr              : Clear runfile terminal.")
         print("quit                   : Exit runfile.")
         print()
@@ -75,7 +152,10 @@ while True:
         try:
             from googlesearch import *
         except:
-            print("[PythonModuleNotFound]:google module required. Enter in your command line : 'pip3 install google'")
+            print("[PythonModuleNotFound]:Installing module google.")
+            subprocess.check_call([sys.executable, '-m', 'pip', 'install','google'])
+            print()
+            from googlesearch import *
             continue
         else:
             enableb=1
@@ -117,39 +197,9 @@ while True:
     else:
         pass
 
-    if user=='history':
-        if os.path.exists(historydir)==False:
-            print("[History]:No history found.")
-            continue
-        else:
-            filehist = open(historydir,'r')
-            histdata = filehist.readlines()
-            filehist.close()
-            for i in range(0,len(histdata)):
-                histdata[i] = histdata[i].strip()
-                histdata[i] = histdata[i].strip('\n')
-            print()
-            for h in histdata:
-                print(h)
-            print()
-        continue
-
-    if user=='clearhistory':
-        if os.path.exists(historydir)==False:
-            print("[History]:No history found.")
-            continue
-        else:
-            try:
-                os.remove(historydir)
-            except:
-                print("[Error]:An unexpected error occured.")
-            else:
-                print("[History]:History has been cleared.")
-        continue
-
     if user=='clear' or user=='clr':
         os.system('cls')
-        print("RunFile 3.4.4")
+        print("RunFile 3.4.5")
         print("[HomePath]:{}\n".format(path))
         continue
 
@@ -236,6 +286,10 @@ while True:
         continue
     else:
         pass
+
+    if comm not in commandlist:
+        print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(user))
+        continue
 
     if comm=='_lines_':
         if bfile.isnumeric()==False:
