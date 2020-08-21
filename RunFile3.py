@@ -97,8 +97,8 @@ def rev_history_list():
         hc=0
         rhc=1
     
-keyboard.add_hotkey('ctrl+shift+enter',history_list)
-keyboard.add_hotkey('ctrl+shift+backspace',rev_history_list)
+keyboard.add_hotkey('up arrow',history_list)
+keyboard.add_hotkey('down arrow',rev_history_list)
 
 while True:
     counthist=-1
