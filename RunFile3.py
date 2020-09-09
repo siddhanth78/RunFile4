@@ -96,9 +96,14 @@ def rev_history_list():
     finally:
         hc=0
         rhc=1
+
+def restart():
+    os.system('cls')
+    os.system(origin+'\\RunFile.py')
     
 keyboard.add_hotkey('ctrl+shift+enter',history_list)
 keyboard.add_hotkey('ctrl+shift+backspace',rev_history_list)
+keyboard.add_hotkey('ctrl+shift+r',restart)
 
 while True:
     ok=0
