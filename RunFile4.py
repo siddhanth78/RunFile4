@@ -604,25 +604,19 @@ while True:
                 else:
                     runfunc = func+'.'+file+'.'+arg
             print("rf4>>Start:{}".format(command[1]))
-            
-            if arg=='':
-                if "#RunFile" in datar:
-                    os.system(r'{}'.format(path+"\\"+command[1]))
+
+            try:
+                print("rf4>>Execute:{}".format(runfunc))
+                if func=="":
+                    exec("import {}".format(file))
                 else:
-                    webbrowser.open(r'{}'.format(path+"\\"+command[1]))
+                    exec("import {}".format(func+'.'+file))
+                exec(runfunc)
+            except:
+                print("rf4>>An error occured. Check your input and try again.")
+                continue
             else:
-                try:
-                    print("rf4>>Execute:{}".format(runfunc))
-                    if func=="":
-                        exec("import {}".format(file))
-                    else:
-                        exec("import {}".format(func+'.'+file))
-                    exec(runfunc)
-                except:
-                    print("rf4>>An error occured. Check your input and try again.")
-                    continue
-                else:
-                    pass
+                pass
             print("rf4>>Stop:{}".format(command[1]))
             continue
         elif command[0]=='findfunc':
