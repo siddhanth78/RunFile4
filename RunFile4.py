@@ -19,13 +19,14 @@ licommand=[]
 commandlist = ['homepath','delpath','showpath','quit','newhomepath','delfile','createfile','addcontent','store',
             'runfile','runfunc','funclist','findfunc','content','addpath','findpath','browse','_file_','_file_reset_',
             '_lines_','_lines_reset_','storelines','_fromlines_','RunFile','clearcontent','clr','clear','help',
-               'enablebrowser','disablebrowser','enablenhp','disablenhp','quit','history','clearhistory']
+               'enablebrowser','disablebrowser','enablenhp','disablenhp','quit','history','clearhistory','searchhistory']
 
 arg0 = ['homepath','showpath','delpath','enablenhp','disablenhp','enablebrowser','disablebrowser','quit',
         'clear','clr','help','_file_','_file_reset_','_lines_','_lines_reset_','history','clearhistory']
 
 arg1 = ['newhomepath','delfile','createfile','addcontent','store','runfile','funclist','content',
-        'storelines','browse','_lines_','_fromlines_','RunFile','clearcontent','findpath','addpath']
+        'storelines','browse','_lines_','_fromlines_','RunFile','clearcontent','findpath','addpath',
+        'searchhistory']
 
 arg2 = ['runfunc','findfunc']
             
@@ -149,6 +150,7 @@ while True:
             print("RunFile <filename>                  : Mark a '.py' file to display output of the code on the runfile terminal.")
             print("clear/clr                           : Clear runfile terminal.")
             print("history                             : Display command history.")
+            print("searchhistory                       : Search command history.")
             print("clearhistory                        : Clear command history.")
             print("quit                                : Exit runfile.")
             print()
@@ -209,7 +211,7 @@ while True:
 
         if command[0]=='_file_reset_':
             contentkey['_file_'] = ''
-            print("rf4>>:Contents of _file_ has been deleted.")
+            print("rf4>>Contents of _file_ has been deleted.")
             continue
 
         if command[0]=='_lines_':
@@ -218,7 +220,7 @@ while True:
 
         if command[0]=='_lines_reset_':
             contentkey['_lines_'] = ''
-            print("rf4>>:Contents of _file_ has been deleted.")
+            print("rf4>>Contents of _file_ has been deleted.")
             continue
 
         if command[0]=='showpath':
@@ -271,6 +273,20 @@ while True:
                 print("rf4>>Command '{}' takes 2 arguments. Enter 'help' for more info.".format(command[0]))
             continue
 
+        if command[0]=="searchhistory":
+            if os.path.exists(historydir)==False:
+                print("rf4>>No history found.")
+                continue
+            filee = open(historydir,'r')
+            histdata = filee.readlines()
+            filee.close()
+            for x in histdata:
+                x = x.strip()
+                x = x.strip("\n")
+                if command[1] in x:
+                    print("rf4>>"+x)
+            continue
+
         if command[0]=='_lines_':
             if command[1].isnumeric()==False:
                 print("rf4>>Line number required.")
@@ -299,7 +315,7 @@ while True:
                 else:
                     try:
                         contentkey['_file_'] = contentkey.get('_lines_')[command[1]-1].strip("\n")
-                        print("[_fromdatalist_]:Specified _lines_ content has been stored in _file_. Use key '_file_' to access the content.")
+                        print("rf4>>Specified _lines_ content has been stored in _file_. Use key '_file_' to access the content.")
                     except:
                         print("rf4>>Line number out of range.")
                     else:
@@ -429,7 +445,7 @@ while True:
             data = filee.readlines()
             filee.close()
             contentkey["_lines_"] = data
-            print("rf4>>:File content has been stored. Use key '_lines_' to access the content.")
+            print("rf4>>File content has been stored. Use key '_lines_' to access the content.")
         elif command[0]=='content':
             filee = open(path+"\\"+command[1],'r')
             data = filee.read()
@@ -445,7 +461,7 @@ while True:
             data = filee.read()
             filee.close()
             contentkey["_file_"] = data.strip()
-            print("rf4>>:File content has been stored. Use key '_file_' to access the content.")
+            print("rf4>>File content has been stored. Use key '_file_' to access the content.")
             continue
 
         if command[0]=='addcontent':
@@ -596,7 +612,7 @@ while True:
                     webbrowser.open(r'{}'.format(path+"\\"+command[1]))
             else:
                 try:
-                    print("[Execute]:{}".format(runfunc))
+                    print("rf4>>Execute:{}".format(runfunc))
                     if func=="":
                         exec("import {}".format(file))
                     else:
