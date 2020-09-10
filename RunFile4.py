@@ -3,17 +3,6 @@ import webbrowser
 import subprocess
 import sys
 
-try:
-    import keyboard
-except:
-    print("rf4>>Installing module keyboard.\n")
-    subprocess.check_call([sys.executable, '-m', 'pip', 'install','keyboard'])
-    print()
-    import keyboard
-else:
-    pass
-    
-
 origin = os.getcwd()
 path = origin
 print("RunFile 4.0.2. Enter 'help' for more info.\n")
@@ -64,12 +53,6 @@ countrevhist=len(histdata)+counthist
 hc=0
 rhc=0
 beg=0
-
-def restart():
-    os.system('cls')
-    os.system(origin+'\\RunFile4.py')
-
-keyboard.add_hotkey('ctrl+shift+r',restart)
 
 def analyseline(user):
     userli = user.split(" ")
