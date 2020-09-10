@@ -68,7 +68,7 @@ beg=0
 
 def restart():
     os.system('cls')
-    os.system(origin+'\\RunFile_v2.py')
+    os.system(origin+'\\RunFile4.py')
 
 keyboard.add_hotkey('ctrl+shift+r',restart)
 
