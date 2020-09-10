@@ -6,7 +6,7 @@ import sys
 try:
     import keyboard
 except:
-    print("[PythonModuleNotFound]:Installing module keyboard.\n")
+    print("rf4>>Installing module keyboard.\n")
     subprocess.check_call([sys.executable, '-m', 'pip', 'install','keyboard'])
     print()
     import keyboard
@@ -16,8 +16,8 @@ else:
 
 origin = os.getcwd()
 path = origin
-print("RunFile 4.0.2")
-print("[HomePath]:{}\n".format(path))
+print("RunFile 4.0.2. Enter 'help' for more info.\n")
+print("rf4>>HomePath:{}".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
 enable=0
@@ -35,11 +35,10 @@ commandlist = ['homepath','delpath','showpath','quit','newhomepath','delfile','c
 arg0 = ['homepath','showpath','delpath','enablenhp','disablenhp','enablebrowser','disablebrowser','quit',
         'clear','clr','help','_file_','_file_reset_','_lines_','_lines_reset_','history','clearhistory']
 
-arg1 = ['newhomepath','delfile','createfile','addcontent','store','runfile','funclist','findfunc',
-        'storelines','browse','_lines_','_fromlines_','RunFile','clearcontent','findpath','addpath',
-        'content']
+arg1 = ['newhomepath','delfile','createfile','addcontent','store','runfile','funclist','content',
+        'storelines','browse','_lines_','_fromlines_','RunFile','clearcontent','findpath','addpath']
 
-arg2 = ['runfunc']
+arg2 = ['runfunc','findfunc']
             
 
 if os.path.exists(historydir)==True:
@@ -78,7 +77,7 @@ def analyseline(user):
     return li
 
 while True:
-    user = input("[Command]:")
+    user = input("rf4>>")
     if user.strip()=="":
         continue
 
@@ -94,13 +93,13 @@ while True:
         filee.close()
     
     if command[0] not in commandlist:
-        print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
+        print("rf4>>Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
         continue
 
     arglen = len(command)
     
     if arglen>3:
-        print(f"[Error]:Max args : 2  Got args : {arglen-1}")
+        print(f"rf4>>Max args : 2  Got args : {arglen-1}")
         continue
     else:
         pass
@@ -110,14 +109,14 @@ while True:
 
         if command[0] not in arg0:
             if command[0] in arg1:
-                print("[InvalidCommand]:Command '{}' takes 1 argument. Enter 'help' for more info.".format(command[0]))
+                print("rf4>>Command '{}' takes 1 argument. Enter 'help' for more info.".format(command[0]))
             elif command[0] in arg2:
-                print("[InvalidCommand]:Command '{}' takes 2 arguments. Enter 'help' for more info.".format(command[0]))
+                print("rf4>>Command '{}' takes 2 arguments. Enter 'help' for more info.".format(command[0]))
             continue
 
         if command[0]=="history":
             if os.path.exists(historydir)==False:
-                print("[History]:No history found.")
+                print("rf4>>No history found.")
                 continue
             filee = open(historydir,'r')
             histdata = filee.read()
@@ -127,45 +126,48 @@ while True:
 
         if command[0]=="clearhistory":
             if os.path.exists(historydir)==False:
-                print("[History]:No history found.")
+                print("rf4>>No history found.")
                 continue
             filee = open(historydir,'w')
             filee.write("")
             filee.close()
-            print("[History]:History has been cleared.")
+            print("rf4>>History has been cleared.")
             continue
             
         
         if command[0]=="help":
             print()
             print("RunFile v4.0.2")
+            print("RunFile is used mainly for file manipulation. It is optimised for python files as RunFile can")
+            print("explore deep into your code, access the code's functions and classes, run functions seperately,")
+            print("search for desired function or class in the code and run the code itself.")
             print("Commands:\n")
-            print("showpath                          : List all the available directories and files in your current path.")
-            print("addpath <dir/subdir>              : Add a dir to your original path.")
-            print("findpath <dir/subdir>             : Check and display all dirs or files which match.")
-            print("delpath                           : Remove last added dir or subdir from path.")
-            print("homepath                          : Go back to original path.")
-            print("delfile <filename>                : Delete the specified file.")
-            print("createfile <filename>             : Create file of specified name.")
-            print("content <filename>                : Display content of a file.")
-            print("clearcontent <filename>           : Clear content of a file.")
-            print("store <filename>                  : Store content of a file and extract with key '_file_'.")
-            print("storelines <filename>             : Store lines of a file and extract with key '_lines_'.")
-            print("_file_                            : Use to get stored file data.")
-            print("_lines_                           : Use to get stored file lines.")
-            print("_lines_ <linenumber>              : Use to get specified line from _lines_.")
-            print("_fromlines_ <linenumber>          : Store a line from _lines_ into _file_.")
-            print("_file_reset_                      : Clear data stored in _file_.")
-            print("_lines_reset_                     : Clear data stored in _lines_.")
-            print("runfile <filename>                : Run or open specified file. Output of code will be displayed on a different teminal.")
-            print("runfunc <filename> <func(<args>)> : Access and run a function in a '.py' file.")
-            print("findfunc <filename>               : Find a function or functions in a '.py' file>")
-            print("funclist <filename>               : List all the classes and functions in a '.py' file.")
-            print("RunFile <filename>                : Mark a '.py' file to display output of the code on the runfile terminal.")
-            print("clear/clr                         : Clear runfile terminal.")
-            print("history                           : Display command history.")
-            print("clearhistory                      : Clear command history.")
-            print("quit                              : Exit runfile.")
+            print("showpath                            : List all the available directories and files in your current path.")
+            print("addpath <dir/subdir>                : Add a dir to your original path.")
+            print("findpath <dir/subdir>               : Check and display all dirs or files which match.")
+            print("delpath                             : Remove last added dir or subdir from path.")
+            print("homepath                            : Go back to original path.")
+            print("delfile <filename>                  : Delete the specified file.")
+            print("createfile <filename>               : Create file of specified name.")
+            print("content <filename>                  : Display content of a file.")
+            print("clearcontent <filename>             : Clear content of a file.")
+            print("store <filename>                    : Store content of a file and extract with key '_file_'.")
+            print("storelines <filename>               : Store lines of a file and extract with key '_lines_'.")
+            print("_file_                              : Use to get stored file data.")
+            print("_lines_                             : Use to get stored file lines.")
+            print("_lines_ <linenumber>                : Use to get specified line from _lines_.")
+            print("_fromlines_ <linenumber>            : Store a line from _lines_ into _file_.")
+            print("_file_reset_                        : Clear data stored in _file_.")
+            print("_lines_reset_                       : Clear data stored in _lines_.")
+            print("runfile <filename>                  : Run or open specified file. Output of code will be displayed on a different teminal.")
+            print("runfunc <filename> <func(<args>)>   : Access and run a function in a '.py' file.")
+            print("findfunc <filename> <func(<args>)>  : Find a function or functions in a '.py' file>")
+            print("funclist <filename>                 : List all the classes and functions in a '.py' file.")
+            print("RunFile <filename>                  : Mark a '.py' file to display output of the code on the runfile terminal.")
+            print("clear/clr                           : Clear runfile terminal.")
+            print("history                             : Display command history.")
+            print("clearhistory                        : Clear command history.")
+            print("quit                                : Exit runfile.")
             print()
             continue
         
@@ -173,25 +175,25 @@ while True:
             try:
                 from googlesearch import *
             except:
-                print("[PythonModuleNotFound]:Installing module google.")
+                print("rf4>>Installing module google.")
                 subprocess.check_call([sys.executable, '-m', 'pip', 'install','google'])
                 print()
                 from googlesearch import *
             else:
                 enableb=1
-                print("[BrowserSearch]:Enabled")
-                print("[Warning]:May or may not give desired output. Can be disabled with 'disablebrowser' command.")
+                print("rf4>>Browser:Enabled")
+                print("rf4>>May or may not give desired output. Can be disabled with 'disablebrowser' command.")
             continue
 
         if command[0]=='disablebrowser':
             enableb=0
-            print("[BrowserSearch]:Disabled")
+            print("rf4>>Browser:Disabled")
             continue
 
         if command[0]=='enablenhp':
             enable=1
-            print("[Newhomepath]:Enabled")
-            print("[Warning]:May or may not give desired output. Can be disabled with 'disablenhp' command.")
+            print("rf4>>NewHomePath:Enabled")
+            print("rf4>>May or may not give desired output. Can be disabled with 'disablenhp' command.")
             continue
 
         if command[0]=='disablenhp':
@@ -199,14 +201,14 @@ while True:
             func=""
             origin = os.getcwd()
             path=origin
-            print("[Newhomepath]:Disabled")
-            print("[homepath]:{}".format(path))
+            print("rf4>>NewHomePath:Disabled")
+            print("rf4>>HomePath:{}".format(path))
             continue
 
         if command[0]=='clear' or command[0]=='clr':
             os.system('cls')
             print("RunFile 4.0.2")
-            print("[HomePath]:{}\n".format(path))
+            print("rf4>>HomePath:{}\n".format(path))
             continue
 
         if command[0]=="quit":
@@ -215,7 +217,7 @@ while True:
         if command[0]=='homepath':
             path=origin
             func=""
-            print("[HomePath]:{}".format(path))
+            print("rf4>>HomePath:{}".format(path))
             continue
 
         if command[0]=='_file_':
@@ -224,7 +226,7 @@ while True:
 
         if command[0]=='_file_reset_':
             contentkey['_file_'] = ''
-            print("[_file_]:Contents of _file_ has been deleted.")
+            print("rf4>>:Contents of _file_ has been deleted.")
             continue
 
         if command[0]=='_lines_':
@@ -233,22 +235,22 @@ while True:
 
         if command[0]=='_lines_reset_':
             contentkey['_lines_'] = ''
-            print("[_lines_]:Contents of _file_ has been deleted.")
+            print("rf4>>:Contents of _file_ has been deleted.")
             continue
 
         if command[0]=='showpath':
             print()
             for root, dirs, files in os.walk(path, topdown=False):
                 for name in files:
-                    print("[File]:"+os.path.join(root, name))
+                    print("rf4>>File:"+os.path.join(root, name))
                 for name in dirs:
-                    print("[Directory]:"+os.path.join(root, name))
+                    print("rf4>>Directory:"+os.path.join(root, name))
             print()
             continue
 
         if command[0]=='delpath':
             if path==origin:
-                print("[InvalidPathOperation]:Cannot delete from original path.")
+                print("rf4>>Cannot delete from original path.")
             continue
             count=0
             lipath = path.split("\\")
@@ -274,49 +276,49 @@ while True:
                         break
                     func=func+fu+"."
             func=func.strip()
-            print("[NewPath]:{}".format(path))
+            print("rf4>>NewPath:{}".format(path))
             continue
 
     elif arglen==2:
 
         if command[0] not in arg1:
             if command[0] in arg0:
-                print("[InvalidCommand]:Command '{}' doesn't take arguments. Enter 'help' for more info.".format(command[0]))
+                print("rf4>>Command '{}' doesn't take arguments. Enter 'help' for more info.".format(command[0]))
             elif command[0] in arg2:
-                print("[InvalidCommand]:Command '{}' takes 2 arguments. Enter 'help' for more info.".format(command[0]))
+                print("rf4>>Command '{}' takes 2 arguments. Enter 'help' for more info.".format(command[0]))
             continue
 
         if command[0]=='_lines_':
             if command[1].isnumeric()==False:
-                print("[Error]:Line number required.")
+                print("rf4>>Line number required.")
             elif command[1].isnumeric()==True:
                 try:
                     command[1] = int(command[1])
                 except:
-                    print("[Error]:_lines_ accepts numbers only.")
+                    print("rf4>>_lines_ accepts numbers only.")
                 else:
                     try:
                         print("[Line {0}]:{1}".format(command[1],contentkey.get('_lines_')[command[1]-1].strip("\n")))
                     except:
-                        print("[Error]:Line number out of range.")
+                        print("rf4>>Line number out of range.")
                     else:
                         pass
             continue
 
         if command[0]=='_fromlines_':
             if command[1].isnumeric()==False:
-                print("[Error]:Line number required.")
+                print("rf4>>Line number required.")
             elif command[1].isnumeric()==True:
                 try:
                     command[1] = int(command[1])
                 except:
-                    print("[Error]:_lines_ accepts numbers only.")
+                    print("rf4>>_lines_ accepts numbers only.")
                 else:
                     try:
                         contentkey['_file_'] = contentkey.get('_lines_')[command[1]-1].strip("\n")
                         print("[_fromdatalist_]:Specified _lines_ content has been stored in _file_. Use key '_file_' to access the content.")
                     except:
-                        print("[Error]:Line number out of range.")
+                        print("rf4>>Line number out of range.")
                     else:
                         pass
             continue
@@ -336,12 +338,12 @@ while True:
             file = file.replace("/",".")
             file = file.replace("\\",".")
         except:
-            print("[Error]:An error occured. Check your input and try again.")
+            print("rf4>>An error occured. Check your input and try again.")
             continue
         else:
             pass
         if (ext!="py") and (command[0] in ['funclist','findfunc']):
-            print("[InvalidCommand]:Command '{}' works with '.py' files only.".format(command[0]))
+            print("rf4>>Command '{}' works with '.py' files only.".format(command[0]))
             continue
         else:
             pass
@@ -354,7 +356,7 @@ while True:
                     filee = open(path+"\\"+command[1],'x')
                     filee.close()
                 except:
-                    print("[Error]:An error occured. Check your input and try again.")
+                    print("rf4>>An error occured. Check your input and try again.")
                 else:
                     print("[FileCreated]:File '{}' has been created.".format(command[1]))
             continue
@@ -363,23 +365,22 @@ while True:
             try:
                 os.remove(path+"\\"+command[1])
             except:
-                print("[FileNotFound]:File '{}' doesn't exist.".format(command[1]))
+                print("rf4>>File '{}' doesn't exist.".format(command[1]))
             else:
                 print("[FileDeleted]:File '{}' has been deleted.".format(command[1]))
             continue
 
         if command[0]=='browse':
             if enableb==1:
-                print("[BrowserSearch]:{}".format(command[1]))
+                print("rf4>>Search:{}".format(command[1]))
                 browse_path = browserPath
                 for url in search(command[1], tld="co.in", num=1, stop = 1, pause = 2):
                     webbrowser.open("https://google.com/search?q=%s" % command[1])
             elif enableb==0:
-                print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
+                print("rf4>>Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
             continue
         
         if command[0]=='findpath':
-            print()
             for root, dirs, files in os.walk(path, topdown=False):
                 for name in files:
                     if command[1].lower() in name.lower():
@@ -387,32 +388,31 @@ while True:
                 for name in dirs:
                     if command[1].lower() in name.lower():
                         print(os.path.join(root, name))
-            print()
             continue
 
         if command[0]=='newhomepath':
             if enable==1:
                 origin=command[1].replace("/","\\")
                 if os.path.exists(pt:=origin)==False:
-                    print(f"[InvalidPathOperation]:Path '{pt}' doesn't exist.")
+                    print(f"rf4>>Path '{pt}' doesn't exist.")
                     origin = os.getcwd()
                     path=origin
                     func=""
-                    print("[HomePath]:{}".format(origin))
+                    print("rf4>>HomePath:{}".format(origin))
                 else:
                     path=origin
                     func=""
-                    print("[NewHomePath]:{}".format(origin))
+                    print("rf4>>NewHomePath:{}".format(origin))
             elif enable==0:
-                print("[InvalidCommand]:Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
+                print("rf4>>Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
             continue
 
         if command[0]=='addpath':
             if "." in command[1]:
-                print("[InvalidPathOperation]:Cannot add file to path.")
+                print("rf4>>Cannot add file to path.")
                 continue
             if os.path.exists(pt:=(path+"\\"+command[1]))==False:
-                print(f"[InvalidPathOperation]:Path '{pt}' doesn't exist.")
+                print(f"rf4>>Path '{pt}' doesn't exist.")
                 continue
             path = path+"\\"+command[1]
             command[1] = command[1].replace("/",".")
@@ -423,14 +423,14 @@ while True:
                 func = func+"."+command[1]
             func=func.strip()
             if "-" in func:
-                print("[Warning]:Invalid character '-' found. Files may or may not open and 'runfunc' will not work.")
-            print("[NewPath]:{}".format(path))
+                print("rf4>>Invalid character '-' found. Files may or may not open and 'runfunc' will not work.")
+            print("rf4>>NewPath:{}".format(path))
             if command[1][0]=='.' or command[1][0]=='.':
-                print("[Warning]:Dir/subdir request beginning with '/' or '\\' may result in wrong path.")
+                print("rf4>>Dir/subdir request beginning with '/' or '\\' may result in wrong path.")
             continue
 
         if os.path.exists(path+"\\"+command[1])==False:
-            print("[FileNotFound]:File '{}' doesn't exist.".format(command[1]))
+            print("rf4>>File '{}' doesn't exist.".format(command[1]))
             continue
 
         if command[0]=='RunFile':
@@ -438,7 +438,7 @@ while True:
             filee.write("#RunFile\n")
             filee.close()
             if ext=="py":
-                print("[RunFile]:The output of this file will now be displayed on the terminal.")
+                print("rf4>>The output of this file will now be displayed on the terminal.")
             continue
 
         if command[0]=='storelines':
@@ -446,7 +446,7 @@ while True:
             data = filee.readlines()
             filee.close()
             contentkey["_lines_"] = data
-            print("[_lines_]:File content has been stored. Use key '_lines_' to access the content.")
+            print("rf4>>:File content has been stored. Use key '_lines_' to access the content.")
         elif command[0]=='content':
             filee = open(path+"\\"+command[1],'r')
             data = filee.read()
@@ -456,22 +456,22 @@ while True:
             filee = open(path+"\\"+command[1],'w')
             filee.write("")
             filee.close()
-            print("[FileCleared]:File content has been deleted.")
+            print("rf4>>File content has been deleted.")
         elif command[0]=='store':
             filee = open(path+"\\"+command[1],'r')
             data = filee.read()
             filee.close()
             contentkey["_file_"] = data.strip()
-            print("[_file_]:File content has been stored. Use key '_file_' to access the content.")
+            print("rf4>>:File content has been stored. Use key '_file_' to access the content.")
             continue
 
         if command[0]=='addcontent':
             sub=0
-            print("[Startfile]:{}".format(command[1]))
+            print("rf4>>File:{}".format(command[1]))
             while True:
                 try:
                     file = open(path+"\\"+command[1],'a')
-                    con = input(" "*sub+"[Line]:")
+                    con = input(" "*sub+"rf4>>Line:")
                     if con=='[sub]':
                         sub+=4
                         continue
@@ -502,7 +502,7 @@ while True:
                                 try:
                                     con = conn.replace("_lines_>"+str(lineno),contentkey.get('_lines_')[lineno-1].strip("\n"))
                                 except:
-                                    print("[Error]:Line number out of range.")
+                                    print("rf4>>Line number out of range.")
                                     continue
                                 else:
                                     pass
@@ -510,11 +510,11 @@ while True:
                         con = con.replace("_lines_",contentkey.get('_lines_'))
                     if con=='[endfile]':
                         file.close()
-                        print("[FileUpdated]:New content has been added.")
+                        print("rf4>>New content has been added.")
                         break
                     file.write(" "*sub+con+"\n")
                 except:
-                    print("[Error]:An unexpected error occured. File will be closed.")
+                    print("rf4>>An unexpected error occured. File will be closed.")
                     file.close()
                     break
                 else:
@@ -527,14 +527,13 @@ while True:
             datar = filee.read()
             filee.close()
             if command[0]=='runfile':
-                print("[Start]:{}".format(command[1]))
+                print("rf4>>Start:{}".format(command[1]))
                 if "#RunFile" in datar:
                     os.system(r'{}'.format(path+"\\"+command[1]))
                 else:
                     webbrowser.open(r'{}'.format(path+"\\"+command[1]))
-                print("[Stop]:{}".format(command[1]))
+                print("rf4>>Stop:{}".format(command[1]))
             elif command[0]=='funclist':
-                print()
                 filee = open(path+"\\"+command[1],'r')
                 data = filee.readlines()
                 filee.close()
@@ -549,13 +548,86 @@ while True:
                             funcname = funcname+x
                         
                         if 'def ' in lines:
-                            print("[Function]:"+funcname)
+                            print("rf4>>Function:"+funcname)
                         elif 'class ' in lines:
-                            print("[Class]:"+funcname)
-                print()
-            elif command[0]=='findfunc':
-                funct = input("[SearchFunction]:")
-                print()
+                            print("rf4>>Class:"+funcname)
+            
+        else:
+            if command[0] == 'runfile':
+                print("rf4>>Start:{}".format(command[1]))
+                webbrowser.open(r"{}".format(path+"\\"+command[1]))
+                print("rf4>>Stop:{}".format(command[1]))
+        continue
+
+    elif arglen==3:
+
+        if command[0] not in arg2:
+            if command[0] in arg0:
+                print("rf4>>Command '{}' doesn't take arguments. Enter 'help' for more info.".format(command[0]))
+            elif command[0] in arg2:
+                print("rf4>>Command '{}' takes 1 argument. Enter 'help' for more info.".format(command[0]))
+            continue
+
+        if command[0] in ['runfunc','findfunc']:
+            try:
+                lif = command[1].split('.')
+                file = lif[0]
+                file = file.strip()
+                ext = lif[1]
+                ext = ext.strip()
+                file = file.replace("/",".")
+                file = file.replace("\\",".")
+            except:
+                print("rf4>>An error occured. Check your input and try again.")
+                continue
+            else:
+                pass
+            if ext!="py":
+                print("rf4>>Command '{}' works with '.py' files only.".format(command[0]))
+                continue
+            else:
+                pass
+
+        if command[0]=='runfunc':
+            filee = open(path+"\\"+command[1],'r')
+            datar = filee.read()
+            filee.close()
+            arg = command[2]
+            arg = arg.strip()
+            if arg=='':
+                pass
+            elif '(' not in arg or ')' not in arg:
+                print("rf4>>Function not completely defined.")
+                continue
+            else:
+                if func.strip()=="":
+                    runfunc = file+'.'+arg
+                else:
+                    runfunc = func+'.'+file+'.'+arg
+            print("rf4>>Start:{}".format(command[1]))
+            
+            if arg=='':
+                if "#RunFile" in datar:
+                    os.system(r'{}'.format(path+"\\"+command[1]))
+                else:
+                    webbrowser.open(r'{}'.format(path+"\\"+command[1]))
+            else:
+                try:
+                    print("[Execute]:{}".format(runfunc))
+                    if func=="":
+                        exec("import {}".format(file))
+                    else:
+                        exec("import {}".format(func+'.'+file))
+                    exec(runfunc)
+                except:
+                    print("rf4>>An error occured. Check your input and try again.")
+                    continue
+                else:
+                    pass
+            print("rf4>>Stop:{}".format(command[1]))
+            continue
+        elif command[0]=='findfunc':
+                funct = command[2]
                 filee = open(path+"\\"+command[1],'r')
                 data = filee.readlines()
                 filee.close()
@@ -578,83 +650,8 @@ while True:
                                 funcname = funcname+x
                             
                             if 'def ' in lines:
-                                print("[Function]:"+funcname)
+                                print("rf4>>Function:"+funcname)
                             elif 'class ' in lines:
-                                print("[Class]:"+funcname)
-                print()
-        else:
-            if command[0] == 'runfile':
-                print("[Start]:{}".format(command[1]))
-                webbrowser.open(r"{}".format(path+"\\"+command[1]))
-                print("[Stop]:{}".format(command[1]))
-        continue
-
-    elif arglen==3:
-
-        if command[0] not in arg2:
-            if command[0] in arg0:
-                print("[InvalidCommand]:Command '{}' doesn't take arguments. Enter 'help' for more info.".format(command[0]))
-            elif command[0] in arg2:
-                print("[InvalidCommand]:Command '{}' takes 1 argument. Enter 'help' for more info.".format(command[0]))
-            continue
-
-        if command[0] == 'runfunc':
-            try:
-                lif = command[1].split('.')
-                file = lif[0]
-                file = file.strip()
-                ext = lif[1]
-                ext = ext.strip()
-                file = file.replace("/",".")
-                file = file.replace("\\",".")
-            except:
-                print("[Error]:An error occured. Check your input and try again.")
-                continue
-            else:
-                pass
-            if ext!="py":
-                print("[InvalidCommand]:Command '{}' works with '.py' files only.".format(command[0]))
-                continue
-            else:
-                pass
-
-        if ext=='py':
-            filee = open(path+"\\"+command[1],'r')
-            datar = filee.read()
-            filee.close()
-            arg = command[2]
-            arg = arg.strip()
-            if arg=='':
-                pass
-            elif '(' not in arg or ')' not in arg:
-                print("[Error]:Function not completely defined.")
-                continue
-            else:
-                if func.strip()=="":
-                    runfunc = file+'.'+arg
-                else:
-                    runfunc = func+'.'+file+'.'+arg
-            print("[Start]:{}".format(command[1]))
-            
-            if arg=='':
-                if "#RunFile" in datar:
-                    os.system(r'{}'.format(path+"\\"+command[1]))
-                else:
-                    webbrowser.open(r'{}'.format(path+"\\"+command[1]))
-            else:
-                try:
-                    print("[Execute]:{}".format(runfunc))
-                    if func=="":
-                        exec("import {}".format(file))
-                    else:
-                        exec("import {}".format(func+'.'+file))
-                    exec(runfunc)
-                except:
-                    print("[Error]:An error occured. Check your input and try again.")
-                    continue
-                else:
-                    pass
-            print("[Stop]:{}".format(command[1]))
-            continue
+                                print("rf4>>Class:"+funcname)
             
 
