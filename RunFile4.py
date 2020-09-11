@@ -6,7 +6,7 @@ import sys
 origin = os.getcwd()
 path = origin
 print("RunFile 4.0.2. Enter 'help' for more info.\n")
-print("rf4>>HomePath:{}".format(path))
+print("HomePath:{}".format(path))
 browserPath = r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe %s'
 func=""
 enable=0
@@ -187,13 +187,13 @@ while True:
             origin = os.getcwd()
             path=origin
             print("rf4>>NewHomePath:Disabled")
-            print("rf4>>HomePath:{}".format(path))
+            print("\nHomePath:{}".format(path))
             continue
 
         if command[0]=='clear' or command[0]=='clr':
             os.system('cls')
-            print("RunFile 4.0.2")
-            print("rf4>>HomePath:{}\n".format(path))
+            print("RunFile 4.0.2. Enter 'help' for more info.\n")
+            print("HomePath:{}".format(path))
             continue
 
         if command[0]=="quit":
@@ -202,7 +202,7 @@ while True:
         if command[0]=='homepath':
             path=origin
             func=""
-            print("rf4>>HomePath:{}".format(path))
+            print("\nHomePath:{}".format(path))
             continue
 
         if command[0]=='_file_':
@@ -227,9 +227,9 @@ while True:
             print()
             for root, dirs, files in os.walk(path, topdown=False):
                 for name in files:
-                    print("rf4>>File:"+os.path.join(root, name))
+                    print("File:"+os.path.join(root, name))
                 for name in dirs:
-                    print("rf4>>Directory:"+os.path.join(root, name))
+                    print("Directory:"+os.path.join(root, name))
             print()
             continue
 
@@ -261,7 +261,7 @@ while True:
                         break
                     func=func+fu+"."
             func=func.strip()
-            print("rf4>>NewPath:{}".format(path))
+            print("\nNewPath:{}".format(path))
             continue
 
     elif arglen==2:
@@ -280,11 +280,16 @@ while True:
             filee = open(historydir,'r')
             histdata = filee.readlines()
             filee.close()
+            if histdata==[]:
+                print("rf4>>No history found.")
+                continue
+            print()
             for x in histdata:
                 x = x.strip()
                 x = x.strip("\n")
                 if command[1] in x:
-                    print("rf4>>"+x)
+                    print(x)
+            print()
             continue
 
         if command[0]=='_lines_':
@@ -297,7 +302,7 @@ while True:
                     print("rf4>>_lines_ accepts numbers only.")
                 else:
                     try:
-                        print("[Line {0}]:{1}".format(command[1],contentkey.get('_lines_')[command[1]-1].strip("\n")))
+                        print("Line {0}:{1}".format(command[1],contentkey.get('_lines_')[command[1]-1].strip("\n")))
                     except:
                         print("rf4>>Line number out of range.")
                     else:
@@ -349,7 +354,7 @@ while True:
 
         if command[0]=='createfile':
             if os.path.exists(path+"\\"+command[1])==True:
-                print("[FileExists]:File '{}' already exists.".format(command[1]))
+                print("rf4>>File '{}' already exists.".format(command[1]))
             else:
                 try:
                     filee = open(path+"\\"+command[1],'x')
@@ -357,7 +362,7 @@ while True:
                 except:
                     print("rf4>>An error occured. Check your input and try again.")
                 else:
-                    print("[FileCreated]:File '{}' has been created.".format(command[1]))
+                    print("rf4>>File '{}' has been created.".format(command[1]))
             continue
 
         if command[0]=='delfile':
@@ -366,12 +371,12 @@ while True:
             except:
                 print("rf4>>File '{}' doesn't exist.".format(command[1]))
             else:
-                print("[FileDeleted]:File '{}' has been deleted.".format(command[1]))
+                print("rf4>>File '{}' has been deleted.".format(command[1]))
             continue
 
         if command[0]=='browse':
             if enableb==1:
-                print("rf4>>Search:{}".format(command[1]))
+                print("\nSearch:{}\n".format(command[1]))
                 browse_path = browserPath
                 for url in search(command[1], tld="co.in", num=1, stop = 1, pause = 2):
                     webbrowser.open("https://google.com/search?q=%s" % command[1])
@@ -397,11 +402,11 @@ while True:
                     origin = os.getcwd()
                     path=origin
                     func=""
-                    print("rf4>>HomePath:{}".format(origin))
+                    print("\nHomePath:{}".format(origin))
                 else:
                     path=origin
                     func=""
-                    print("rf4>>NewHomePath:{}".format(origin))
+                    print("\nNewHomePath:{}".format(origin))
             elif enable==0:
                 print("rf4>>Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
             continue
@@ -423,7 +428,7 @@ while True:
             func=func.strip()
             if "-" in func:
                 print("rf4>>Invalid character '-' found. Files may or may not open and 'runfunc' will not work.")
-            print("rf4>>NewPath:{}".format(path))
+            print("\nNewPath:{}".format(path))
             if command[1][0]=='.' or command[1][0]=='.':
                 print("rf4>>Dir/subdir request beginning with '/' or '\\' may result in wrong path.")
             continue
@@ -466,11 +471,11 @@ while True:
 
         if command[0]=='addcontent':
             sub=0
-            print("rf4>>File:{}".format(command[1]))
+            print("\nFile:{}\n".format(command[1]))
             while True:
                 try:
                     file = open(path+"\\"+command[1],'a')
-                    con = input(" "*sub+"rf4>>Line:")
+                    con = input(" "*sub+"Line:")
                     if con=='[sub]':
                         sub+=4
                         continue
@@ -501,7 +506,7 @@ while True:
                                 try:
                                     con = conn.replace("_lines_>"+str(lineno),contentkey.get('_lines_')[lineno-1].strip("\n"))
                                 except:
-                                    print("rf4>>Line number out of range.")
+                                    print("\nrf4>>Line number out of range.\n")
                                     continue
                                 else:
                                     pass
@@ -509,11 +514,11 @@ while True:
                         con = con.replace("_lines_",contentkey.get('_lines_'))
                     if con=='[endfile]':
                         file.close()
-                        print("rf4>>New content has been added.")
+                        print("\nrf4>>New content has been added.")
                         break
                     file.write(" "*sub+con+"\n")
                 except:
-                    print("rf4>>An unexpected error occured. File will be closed.")
+                    print("\nrf4>>An unexpected error occured. File will be closed.")
                     file.close()
                     break
                 else:
@@ -526,16 +531,17 @@ while True:
             datar = filee.read()
             filee.close()
             if command[0]=='runfile':
-                print("rf4>>Start:{}".format(command[1]))
+                print("\nStart:{}".format(command[1]))
                 if "#RunFile" in datar:
                     os.system(r'{}'.format(path+"\\"+command[1]))
                 else:
                     webbrowser.open(r'{}'.format(path+"\\"+command[1]))
-                print("rf4>>Stop:{}".format(command[1]))
+                print("Stop:{}\n".format(command[1]))
             elif command[0]=='funclist':
                 filee = open(path+"\\"+command[1],'r')
                 data = filee.readlines()
                 filee.close()
+                print()
                 for lines in data:
                     funcname=""
                     lines = lines.strip()
@@ -547,15 +553,15 @@ while True:
                             funcname = funcname+x
                         
                         if 'def ' in lines:
-                            print("rf4>>Function:"+funcname)
+                            print("Function:"+funcname)
                         elif 'class ' in lines:
-                            print("rf4>>Class:"+funcname)
-            
+                            print("Class:"+funcname)
+                print()
         else:
             if command[0] == 'runfile':
-                print("rf4>>Start:{}".format(command[1]))
+                print("\nStart:{}".format(command[1]))
                 webbrowser.open(r"{}".format(path+"\\"+command[1]))
-                print("rf4>>Stop:{}".format(command[1]))
+                print("Stop:{}\n".format(command[1]))
         continue
 
     elif arglen==3:
@@ -603,10 +609,10 @@ while True:
                     runfunc = file+'.'+arg
                 else:
                     runfunc = func+'.'+file+'.'+arg
-            print("rf4>>Start:{}".format(command[1]))
+            print("\nStart:{}".format(command[1]))
 
             try:
-                print("rf4>>Execute:{}".format(runfunc))
+                print("Execute:{}".format(runfunc))
                 if func=="":
                     exec("import {}".format(file))
                 else:
@@ -617,13 +623,13 @@ while True:
                 continue
             else:
                 pass
-            print("rf4>>Stop:{}".format(command[1]))
-            continue
+            print("Stop:{}\n".format(command[1]))
         elif command[0]=='findfunc':
                 funct = command[2]
                 filee = open(path+"\\"+command[1],'r')
                 data = filee.readlines()
                 filee.close()
+                print()
                 for lines in data:
                     funcname=""
                     lines = lines.strip()
@@ -643,8 +649,9 @@ while True:
                                 funcname = funcname+x
                             
                             if 'def ' in lines:
-                                print("rf4>>Function:"+funcname)
+                                print("Function:"+funcname)
                             elif 'class ' in lines:
-                                print("rf4>>Class:"+funcname)
-            
+                                print("Class:"+funcname)
+                print()
+        continue  
 
