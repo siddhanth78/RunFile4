@@ -343,6 +343,28 @@ while True:
                 print("rf4>>Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
             continue
 
+        try:
+            lif = command[1].split('.')
+            ext=""
+            file = lif[0]
+            file = file.strip()
+            if len(lif)>=2:
+                ext = lif[1]
+                ext = ext.strip()
+            file = file.replace("/",".")
+            file = file.replace("\\",".")
+        except:
+            print("rf4>>An error occured. Check your input and try again.")
+            continue
+        else:
+            pass
+        
+        if ext!="py" and command[0]=='funclist':
+            print("rf4>>Command '{}' works with '.py' files only.".format(command[0]))
+            continue
+        else:
+            pass
+
         if command[0]=='addpath':
             if "." in command[1]:
                 print("rf4>>Cannot add file to path.")
@@ -512,25 +534,6 @@ while True:
             file.close()
             continue
 
-        try:
-            lif = command[1].split('.')
-            file = lif[0]
-            file = file.strip()
-            ext = lif[1]
-            ext = ext.strip()
-            file = file.replace("/",".")
-            file = file.replace("\\",".")
-        except:
-            print("rf4>>An error occured. Check your input and try again.")
-            continue
-        else:
-            pass
-        if (ext!="py") and (command[0] in ['funclist','findfunc']):
-            print("rf4>>Command '{}' works with '.py' files only.".format(command[0]))
-            continue
-        else:
-            pass
-
         if ext=='py':
             filee = open(path+"\\"+command[1],'r')
             datar = filee.read()
@@ -568,6 +571,7 @@ while True:
                 webbrowser.open(r"{}".format(path+"\\"+command[1]))
                 print("Stop:{}\n".format(command[1]))
         continue
+
 
     elif arglen==3:
 
