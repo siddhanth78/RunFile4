@@ -67,7 +67,7 @@ while True:
 
     command = analyseline(user)
 
-    if command[0] not in ['history','clearhistory']:
+    if command[0] not in ['history','clearhistory','searchhistory']:
         histdat=""
         for h in range(len(command)):
             histdat = histdat+command[h]+" "
@@ -333,24 +333,37 @@ while True:
         if command[1]=='_lines_':
             command[1] = contentkey.get('_lines_')
 
-        try:
-            lif = command[1].split('.')
-            file = lif[0]
-            file = file.strip()
-            ext = lif[1]
-            ext = ext.strip()
-            file = file.replace("/",".")
-            file = file.replace("\\",".")
-        except:
-            print("rf4>>An error occured. Check your input and try again.")
+        if command[0]=='browse':
+            if enableb==1:
+                print("\nSearch:{}\n".format(command[1]))
+                browse_path = browserPath
+                for url in search(command[1], tld="co.in", num=1, stop = 1, pause = 2):
+                    webbrowser.open("https://google.com/search?q=%s" % command[1])
+            elif enableb==0:
+                print("rf4>>Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
             continue
-        else:
-            pass
-        if (ext!="py") and (command[0] in ['funclist','findfunc']):
-            print("rf4>>Command '{}' works with '.py' files only.".format(command[0]))
+
+        if command[0]=='addpath':
+            if "." in command[1]:
+                print("rf4>>Cannot add file to path.")
+                continue
+            if os.path.exists(pt:=(path+"\\"+command[1]))==False:
+                print(f"rf4>>Path '{pt}' doesn't exist.")
+                continue
+            path = path+"\\"+command[1]
+            command[1] = command[1].replace("/",".")
+            command[1] = command[1].replace("\\",".")
+            if func.strip()=="":
+                func=command[1]
+            else:
+                func = func+"."+command[1]
+            func=func.strip()
+            if "-" in func:
+                print("rf4>>Invalid character '-' found. Files may or may not open and 'runfunc' will not work.")
+            print("\nNewPath:{}".format(path))
+            if command[1][0]=='.' or command[1][0]=='.':
+                print("rf4>>Dir/subdir request beginning with '/' or '\\' may result in wrong path.")
             continue
-        else:
-            pass
 
         if command[0]=='createfile':
             if os.path.exists(path+"\\"+command[1])==True:
@@ -374,15 +387,6 @@ while True:
                 print("rf4>>File '{}' has been deleted.".format(command[1]))
             continue
 
-        if command[0]=='browse':
-            if enableb==1:
-                print("\nSearch:{}\n".format(command[1]))
-                browse_path = browserPath
-                for url in search(command[1], tld="co.in", num=1, stop = 1, pause = 2):
-                    webbrowser.open("https://google.com/search?q=%s" % command[1])
-            elif enableb==0:
-                print("rf4>>Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
-            continue
         
         if command[0]=='findpath':
             for root, dirs, files in os.walk(path, topdown=False):
@@ -411,28 +415,6 @@ while True:
                 print("rf4>>Command '{}' doesn't exist. Enter 'help' for more info.".format(command[0]))
             continue
 
-        if command[0]=='addpath':
-            if "." in command[1]:
-                print("rf4>>Cannot add file to path.")
-                continue
-            if os.path.exists(pt:=(path+"\\"+command[1]))==False:
-                print(f"rf4>>Path '{pt}' doesn't exist.")
-                continue
-            path = path+"\\"+command[1]
-            command[1] = command[1].replace("/",".")
-            command[1] = command[1].replace("\\",".")
-            if func.strip()=="":
-                func=command[1]
-            else:
-                func = func+"."+command[1]
-            func=func.strip()
-            if "-" in func:
-                print("rf4>>Invalid character '-' found. Files may or may not open and 'runfunc' will not work.")
-            print("\nNewPath:{}".format(path))
-            if command[1][0]=='.' or command[1][0]=='.':
-                print("rf4>>Dir/subdir request beginning with '/' or '\\' may result in wrong path.")
-            continue
-
         if os.path.exists(path+"\\"+command[1])==False:
             print("rf4>>File '{}' doesn't exist.".format(command[1]))
             continue
@@ -452,10 +434,14 @@ while True:
             contentkey["_lines_"] = data
             print("rf4>>File content has been stored. Use key '_lines_' to access the content.")
         elif command[0]=='content':
-            filee = open(path+"\\"+command[1],'r')
-            data = filee.read()
-            print("\n{}\n".format(data.strip("\n")))
-            filee.close()
+            try:
+                filee = open(path+"\\"+command[1],'r')
+                data = filee.read()
+                print("\n{}\n".format(data.strip("\n")))
+            except:
+                print("rf4>>Couldn't read file.")
+            finally:
+                filee.close()
         elif command[0]=='clearcontent':
             filee = open(path+"\\"+command[1],'w')
             filee.write("")
@@ -525,6 +511,25 @@ while True:
                     pass
             file.close()
             continue
+
+        try:
+            lif = command[1].split('.')
+            file = lif[0]
+            file = file.strip()
+            ext = lif[1]
+            ext = ext.strip()
+            file = file.replace("/",".")
+            file = file.replace("\\",".")
+        except:
+            print("rf4>>An error occured. Check your input and try again.")
+            continue
+        else:
+            pass
+        if (ext!="py") and (command[0] in ['funclist','findfunc']):
+            print("rf4>>Command '{}' works with '.py' files only.".format(command[0]))
+            continue
+        else:
+            pass
 
         if ext=='py':
             filee = open(path+"\\"+command[1],'r')
