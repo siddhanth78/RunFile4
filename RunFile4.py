@@ -68,12 +68,8 @@ while True:
     command = command_args(user)
 
     if command[0] not in ['history','clearhistory','searchhistory']:
-        histdat=""
-        for h in range(len(command)):
-            histdat = histdat+command[h]+" "
-        histdata.append(histdat)
         filee = open(historydir,'a')
-        filee.write(histdat+'\n')
+        filee.write(user.strip()+'\n')
         filee.close()
     
     if command[0] not in commandlist:
