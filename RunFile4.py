@@ -442,6 +442,8 @@ while True:
         if os.path.exists(path+"\\"+command[1])==False:
             print("rf4>>File '{}' doesn't exist.".format(command[1]))
             continue
+        else:
+            pass
 
         if command[0]=='RunFile':
             filee = open(path+"\\"+command[1],'a')
@@ -457,6 +459,7 @@ while True:
             filee.close()
             contentkey["_lines_"] = data
             print("rf4>>File content has been stored. Use key '_lines_' to access the content.")
+            continue
         elif command[0]=='content':
             try:
                 filee = open(path+"\\"+command[1],'r')
@@ -466,11 +469,13 @@ while True:
                 print("rf4>>Couldn't read file.")
             finally:
                 filee.close()
+            continue
         elif command[0]=='clearcontent':
             filee = open(path+"\\"+command[1],'w')
             filee.write("")
             filee.close()
             print("rf4>>File content has been deleted.")
+            continue
         elif command[0]=='store':
             filee = open(path+"\\"+command[1],'r')
             data = filee.read()
