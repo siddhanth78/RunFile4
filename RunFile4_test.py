@@ -38,6 +38,8 @@ arg1 = ['newhomepath','delfile','createfile','addcontent','store','runfile','fun
 arg2 = ['runfunc','findfunc','box','msg','star','menu','int','string','float','list','tuple']
 
 arg3 = ['msg','star','menu']
+
+invalidnames = list("!@#$%^&*()-+=:;><?/\|',.~`")
             
 
 if os.path.exists(historydir)==True:
@@ -356,35 +358,95 @@ while True:
             if com_arg[0] in commandlist:
                 print("rf4>>Invalid variable name.")
             else:
-                var[com_arg[0]] = 0
+                flagname=1
+                for i in invalidnames:
+                    if i in com_arg[0]:
+                        print("rf4>>Invalid variable name.")
+                        flagname=0
+                        break
+                    else:
+                        flagname=1
+                        pass
+                if flagname==1:
+                    var[com_arg[0]] = 0
+                else:
+                    pass
             continue
 
         if command[0]=='string':
             if com_arg[0] in commandlist:
                 print("rf4>>Invalid variable name.")
             else:
-                var[com_arg[0]] = ""
+                flagname=1
+                for i in invalidnames:
+                    if i in com_arg[0]:
+                        print("rf4>>Invalid variable name.")
+                        flagname=0
+                        break
+                    else:
+                        flagname=1
+                        pass
+                if flagname==1:
+                    var[com_arg[0]] = ""
+                else:
+                    pass
             continue
 
         if command[0]=='float':
             if com_arg[0] in commandlist:
                 print("rf4>>Invalid variable name.")
             else:
-                var[com_arg[0]] = 0.0
+                flagname=1
+                for i in invalidnames:
+                    if i in com_arg[0]:
+                        print("rf4>>Invalid variable name.")
+                        flagname=0
+                        break
+                    else:
+                        flagname=1
+                        pass
+                if flagname==1:
+                    var[com_arg[0]] = 0.0
+                else:
+                    pass
             continue
 
         if command[0]=='list':
             if com_arg[0] in commandlist:
                 print("rf4>>Invalid variable name.")
             else:
-                var[com_arg[0]] = []
+                flagname=1
+                for i in invalidnames:
+                    if i in com_arg[0]:
+                        print("rf4>>Invalid variable name.")
+                        flagname=0
+                        break
+                    else:
+                        flagname=1
+                        pass
+                if flagname==1:
+                    var[com_arg[0]] = []
+                else:
+                    pass
             continue
 
         if command[0]=='tuple':
             if com_arg[0] in commandlist:
                 print("rf4>>Invalid variable name.")
             else:
-                var[com_arg[0]] = ()
+                flagname=1
+                for i in invalidnames:
+                    if i in com_arg[0]:
+                        print("rf4>>Invalid variable name.")
+                        flagname=0
+                        break
+                    else:
+                        flagname=1
+                        pass
+                if flagname==1:
+                    var[com_arg[0]] = ()
+                else:
+                    pass
             continue
 
         if command[0]=="searchhistory":
