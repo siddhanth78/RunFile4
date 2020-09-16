@@ -71,7 +71,65 @@ while True:
         filee.close()
 
     if command[0] in var:
-        print(var[command[0]])
+        if len(com_arg)==0:
+            print(var[command[0]])
+        elif len(com_arg)==1:
+            if isinstance(var[command[0]],str) or isinstance(var[command[0]],list) or isinstance(var[command[0]],tuple):
+                if "," in com_arg[0]:
+                    try:
+                        outer = int(com_arg[0][0].strip())
+                        inner = int(com_arg[0][1].strip())
+                    except:
+                        print("rf4>>Invalid typecasting.")
+                        continue
+                    else:
+                        print(var[command[0]][outer][inner])
+                else:
+                    try:
+                        ind = int(com_arg[0].strip())
+                    except:
+                        print("rf4>>Invalid typecasting.")
+                        continue
+                    else:
+                        print(var[command[0]][ind])
+                        
+        elif len(com_arg)==2:
+            if com_arg[0]=='type':
+                if com_arg[1]=='int':
+                    try:
+                        var[command[0]]=int(var[command[0]])
+                    except:
+                        print("rf4>>Invalid typecasting.")
+                    else:
+                        pass
+                elif com_arg[1]=='string':
+                    try:
+                        var[command[0]]=str(var[command[0]])
+                    except:
+                        print("rf4>>Invalid typecasting.")
+                    else:
+                        pass
+                elif com_arg[1]=='float':
+                    try:
+                        var[command[0]]=float(var[command[0]])
+                    except:
+                        print("rf4>>Invalid typecasting.")
+                    else:
+                        pass
+                elif com_arg[1]=='list':
+                    try:
+                        var[command[0]]=list(var[command[0]])
+                    except:
+                        print("rf4>>Invalid typecasting.")
+                    else:
+                        pass
+                elif com_arg[1]=='tuple':
+                    try:
+                        var[command[0]]=tuple(var[command[0]])
+                    except:
+                        print("rf4>>Invalid typecasting.")
+                    else:
+                        pass    
         continue
     
     if command[0] not in commandlist:
@@ -688,7 +746,12 @@ while True:
                 print("rf4>>Invalid variable name.")
             else:
                 try:
-                    var[com_arg[0]] = list(com_arg[1])
+                    typeliarg=[]
+                    typeli = com_arg[1].split(",")
+                    for i in typeli:
+                        i = eval(i)
+                        typeliarg.append(i)
+                    var[com_arg[0]] = typeliarg
                 except:
                     print("rf4>>Invalid variable value.")
                 else:
@@ -700,7 +763,12 @@ while True:
                 print("rf4>>Invalid variable name.")
             else:
                 try:
-                    var[com_arg[0]] = tuple(com_arg[1])
+                    typeliarg=[]
+                    typeli = com_arg[1].split(",")
+                    for i in typeli:
+                        i = eval(i)
+                        typeliarg.append(i)
+                    var[com_arg[0]] = tuple(typeliarg)
                 except:
                     print("rf4>>Invalid variable value.")
                 else:
